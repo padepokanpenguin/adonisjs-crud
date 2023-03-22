@@ -30,5 +30,5 @@ Route.post("/employees", "EmployeesController.store");
 Route.put("/employees/:id", "EmployeesController.update");
 Route.delete("/employees/:id", "EmployeesController.destroy");
 
-Route.resource("/doctor", "DoctorsController").apiOnly();
+Route.resource("/doctors", "DoctorsController").apiOnly();
 Route.resource("/clinics", "ClinicsController").apiOnly();
