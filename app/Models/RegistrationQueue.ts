@@ -12,7 +12,7 @@ import ClinicQueue from "./ClinicQueue";
 
 export default class RegistrationQueue extends BaseModel {
   @column({ isPrimary: true })
-  public id: number;
+  public id: string;
 
   @column()
   public clinicId: string;

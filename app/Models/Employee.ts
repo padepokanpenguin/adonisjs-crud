@@ -33,14 +33,14 @@ export default class Employee extends BaseModel {
   @column()
   public role: string;
 
-  @column.date()
+  @column.date({autoCreate: true})
   public joinDate: DateTime;
 
   @column()
   public gender: string;
 
   @column()
-  public specialization: string;
+  public specialization: string | null;
 
   @column()
   public phoneNumber: string;
@@ -61,7 +61,7 @@ export default class Employee extends BaseModel {
   public pharmacist: HasOne<typeof Pharmacist>;
 
   @hasMany(() => Patient, {
-    foreignKey: "registBy"
+    foreignKey: "registBy",
   })
   public admin: HasMany<typeof Patient>;
 }

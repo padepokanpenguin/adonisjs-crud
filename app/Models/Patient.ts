@@ -51,10 +51,10 @@ export default class Patient extends BaseModel {
   public phone_number: string;
 
   @column()
-  public birth_day: Date;
+  public birth_day: DateTime;
 
   @column()
-  public register_date: Date;
+  public register_date: DateTime;
 
   @column()
   public is_verified: boolean;

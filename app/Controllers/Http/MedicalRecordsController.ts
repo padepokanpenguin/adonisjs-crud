@@ -1,12 +1,17 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { v4 as uuidV4 } from "uuid";
 import MedicalRecord from "App/Models/MedicalRecord";
+import CreateMedicalRecordValidator from "App/Validators/CreateMedicalRecordValidator";
+import UpdateMedicalRecordValidator from "App/Validators/UpdateMedicalRecordValidator";
 
 export default class MedicalRecordsController {
-  public async index({ response }: HttpContextContract) {
+  public async index({ response, params }: HttpContextContract) {
     try {
+      const { patient_id } = params;
       const data = await MedicalRecord.query()
         .preload("patient")
-        .preload("doctor");
+        .where("patient_id", "=", patient_id);
+      console.log(patient_id);
 
       response.created({
         message: "Berhasil mengambil data Medical Record",
@@ -19,9 +24,9 @@ export default class MedicalRecordsController {
 
   public async store({ request, response }: HttpContextContract) {
     try {
-      const newData = request.body();
-
-      const data = await MedicalRecord.create(newData);
+      const payload = await request.validate(CreateMedicalRecordValidator);
+      payload["id"] = uuidV4();
+      const data = await MedicalRecord.create(payload);
 
       response.created({ message: "Berhasil membuat data", data });
     } catch (error) {
@@ -33,8 +38,9 @@ export default class MedicalRecordsController {
     try {
       const { id } = params;
 
-      const data = await MedicalRecord.findByOrFail("id", id);
-      await data.load("patient", (q) => q.select("*"));
+      const data = await MedicalRecord.query()
+        .preload("patient")
+        .where("id", "=", id);
 
       response.created({
         message: "Berhasil mengambil data detail medical record",
@@ -49,9 +55,9 @@ export default class MedicalRecordsController {
     try {
       const { id } = params;
 
-      const updateData = request.body();
+      const payload = await request.validate(UpdateMedicalRecordValidator);
       const data = await MedicalRecord.findByOrFail("id", id);
-      await data.merge(updateData).save();
+      await data.merge(payload).save();
 
       response.created({ message: "Berhasil memperbarui data", data });
     } catch (error) {

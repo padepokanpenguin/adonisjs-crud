@@ -4,7 +4,7 @@ import Employee from "./Employee";
 
 export default class Pharmacist extends BaseModel {
   @column({ isPrimary: true })
-  public id: number;
+  public id: string;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;

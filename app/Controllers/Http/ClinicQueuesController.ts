@@ -1,5 +1,7 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import ClinicQueue from "App/Models/ClinicQueue";
+import CreateClinicQueueValidator from "App/Validators/CreateClinicQueueValidator";
+import UpdateClinicQueueValidator from "App/Validators/UpdateClinicQueueValidator";
 import { v4 as uuidV4 } from "uuid";
 
 export default class ClinicQueuesController {
@@ -21,10 +23,10 @@ export default class ClinicQueuesController {
 
   public async store({ request, response }: HttpContextContract) {
     try {
-      const newData = request.body();
-      newData["id"] = uuidV4();
+      const payload = await request.validate(CreateClinicQueueValidator);
+      payload["id"] = uuidV4();
 
-      const data = await ClinicQueue.create(newData);
+      const data = await ClinicQueue.create(payload);
 
       response.created({
         message: "Data antrian klinik berhasil dibuat",
@@ -52,10 +54,10 @@ export default class ClinicQueuesController {
   public async update({ request, response, params }: HttpContextContract) {
     try {
       const { id } = params;
-      const updateData = request.body();
+      const payload = await request.validate(UpdateClinicQueueValidator);
 
       const data = await ClinicQueue.findByOrFail("id", id);
-      await data.merge(updateData).save();
+      await data.merge(payload).save();
 
       response.created({ message: "Berhasil memperbarui data", data });
     } catch (error) {

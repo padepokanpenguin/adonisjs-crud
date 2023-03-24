@@ -29,15 +29,21 @@ Route.get("/employees/:id", "EmployeesController.show");
 Route.post("/employees", "EmployeesController.store");
 Route.put("/employees/:id", "EmployeesController.update");
 Route.delete("/employees/:id", "EmployeesController.destroy");
-
+Route.resource("/pharmacists", "PharmacistsController")
 Route.resource("/doctors", "DoctorsController").apiOnly();
-Route.resource("/clinics", "ClinicsController").apiOnly();
+Route.shallowResource("doctors.clinics", "ClinicsController").apiOnly();
 Route.resource("/patients", "PatientsController").apiOnly();
+Route.shallowResource(
+  "patients.medical-records",
+  "MedicalRecordsController"
+).apiOnly();
 Route.resource(
   "/registration-queues",
   "RegistrationQueuesController"
 ).apiOnly();
 Route.resource("/clinic-queues", "ClinicQueuesController").apiOnly();
-Route.resource("/medical-records", "MedicalRecordsController").apiOnly();
 Route.resource("/transactions", "TransactionsController").apiOnly();
-Route.resource("/transactions-details", "TransactionDetailsController").apiOnly();
+Route.shallowResource(
+  "transactions.transactions-details",
+  "TransactionDetailsController"
+).apiOnly();

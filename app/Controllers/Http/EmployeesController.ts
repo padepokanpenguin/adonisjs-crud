@@ -1,15 +1,12 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-// import Database from "@ioc:Adonis/Lucid/Database";
-import Employee from "App/Models/Employee";
-// import { TABLE_NAME } from "App/Utils/helper";
 import { v4 as uuidV4 } from "uuid";
+import Employee from "App/Models/Employee";
+import NewEmployeeValidator from "App/Validators/NewEmployeeValidator";
+import UpdateEmployeeValidator from "App/Validators/UpdateEmployeeValidator";
 
 export default class EmployeesController {
   public async index({ request, response }: HttpContextContract) {
     const { keyword = "" } = request.qs();
-    // const data = await Database.query()
-    //   .from(TABLE_NAME.employee)
-    //   .where("name", "ilike", `%${keyword}%`);
 
     const data = await Employee.query()
       .select("id", "name", "username", "role", "join_date", "email")
@@ -25,15 +22,11 @@ export default class EmployeesController {
 
   public async store({ request, response }: HttpContextContract) {
     try {
-      const employeeData = request.body();
+      const payload = await request.validate(NewEmployeeValidator);
+      payload["id"] = uuidV4();
 
-      const newEmployee = { id: uuidV4(), ...employeeData };
+      const newEmplo = await Employee.create(payload);
 
-      // const newEmplo = await Database.table("klinikku.employees")
-      //   .insert(newEmployee)
-      //   .returning("*");
-
-      const newEmplo = await Employee.create(newEmployee);
       response.created({
         message: "Berhasil menyimpan data employee baru",
         data: newEmplo,
@@ -46,11 +39,6 @@ export default class EmployeesController {
   public async show({ response, params }: HttpContextContract) {
     try {
       const { id } = params;
-
-      // const data = await Database.query()
-      //   .from(TABLE_NAME.employee)
-      //   .select("id", "name", "email", "hire_date", "role")
-      //   .where("id", id);
 
       const data = await Employee.findByOrFail("id", id);
       response.created({
@@ -65,13 +53,11 @@ export default class EmployeesController {
   public async update({ request, response, params }: HttpContextContract) {
     try {
       const { id } = params;
-      const updateEmployee = request.body();
-      // const data = await Database.from(TABLE_NAME.employee)
-      //   .where("id", id)
-      //   .update(updateEmployee, "*");
+
+      const payload = await request.validate(UpdateEmployeeValidator);
 
       const data = await Employee.findByOrFail("id", id);
-      await data.merge(updateEmployee).save();
+      await data.merge(payload).save();
 
       response.created({
         message: "data berhasil di update",
@@ -87,16 +73,11 @@ export default class EmployeesController {
     try {
       const { id } = params;
 
-      // const jumlah_data_terhapus = await Database.from(TABLE_NAME.employee)
-      //   .where("id", id)
-      //   .delete();
-
       const data = await Employee.findByOrFail("id", id);
       await data.delete();
 
       response.created({
         message: "Data berhasil dihapus",
-        data,
       });
     } catch (error) {
       response.send({ message: error.message });

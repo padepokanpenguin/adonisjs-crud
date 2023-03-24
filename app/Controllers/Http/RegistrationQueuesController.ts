@@ -1,6 +1,8 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import { v4 as uuidV4 } from "uuid";
 import RegistrationQueue from "App/Models/RegistrationQueue";
+import CreateRegistrationQueueValidator from "App/Validators/CreateRegistrationQueueValidator";
+import UpdateRegistrationQueueValidator from "App/Validators/UpdateRegistrationQueueValidator";
 
 export default class RegistrationQueuesController {
   public async index({ response }: HttpContextContract) {
@@ -18,10 +20,10 @@ export default class RegistrationQueuesController {
 
   public async store({ request, response }: HttpContextContract) {
     try {
-      const newRegistration = request.body();
-      newRegistration["id"] = uuidV4();
+      const payload = await request.validate(CreateRegistrationQueueValidator);
+      payload["id"] = uuidV4();
 
-      const data = await RegistrationQueue.create(newRegistration);
+      const data = await RegistrationQueue.create(payload);
 
       response.created({
         message: "Berhasil membuat data antrian registrasi",
@@ -50,10 +52,10 @@ export default class RegistrationQueuesController {
   public async update({ request, response, params }: HttpContextContract) {
     try {
       const { id } = params;
-      const update = request.body();
+      const payload = await request.validate(UpdateRegistrationQueueValidator);
 
       const data = await RegistrationQueue.findByOrFail("id", id);
-      await data.merge(update).save();
+      await data.merge(payload).save();
 
       response.created({ message: "Berhasil mengupdate data antrian", data });
     } catch (error) {

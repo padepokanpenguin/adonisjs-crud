@@ -1,11 +1,16 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import TransactionDetail from "App/Models/TransactionDetail";
+import CreateTransactionDetailValidator from "App/Validators/CreateTransactionDetailValidator";
+import UpdateTransactionDetailValidator from "App/Validators/UpdateTransactionDetailValidator";
 import { v4 as uuidV4 } from "uuid";
 
 export default class TransactionDetailsController {
-  public async index({ response }: HttpContextContract) {
+  public async index({ response, params }: HttpContextContract) {
     try {
-      const data = await TransactionDetail.query().preload("transaction");
+      const { transaction_id } = params;
+      const data = await TransactionDetail.query()
+        .preload("transaction")
+        .where("transaction_id", "=", transaction_id);
 
       response.created({
         message: "Berhasil mengambil data transaction detail",
@@ -16,12 +21,14 @@ export default class TransactionDetailsController {
     }
   }
 
-  public async store({ request, response }: HttpContextContract) {
+  public async store({ request, response, params }: HttpContextContract) {
     try {
-      const newData = request.body();
-      newData["id"] = uuidV4();
+      const { transaction_id } = params;
+      const payload = await request.validate(CreateTransactionDetailValidator);
+      payload["id"] = uuidV4();
+      payload["transaction_id"] = transaction_id;
 
-      const data = await TransactionDetail.create(newData);
+      const data = await TransactionDetail.create(payload);
       response.created({
         message: "Berhasil membuat data transaction detail",
         data,
@@ -52,9 +59,9 @@ export default class TransactionDetailsController {
   public async update({ request, response, params }: HttpContextContract) {
     try {
       const { id } = params;
-      const updateData = request.body();
+      const payload = await request.validate(UpdateTransactionDetailValidator);
       const data = await TransactionDetail.findByOrFail("id", id);
-      await data.merge(updateData).save();
+      await data.merge(payload).save();
 
       response.created({ message: "Berhasil memperbarui data", data });
     } catch (error) {
