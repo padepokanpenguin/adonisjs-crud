@@ -5,7 +5,7 @@ export default class CreateMedicalRecordValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    doctor_id: schema.string({ trim: true }, [rules.uuid({ version: 4 })]),
+    // doctor_id: schema.string({ trim: true }, [rules.uuid({ version: 4 })]),
     patient_id: schema.string({ trim: true }, [rules.uuid({ version: 4 })]),
     complaint: schema.string({ trim: true }),
     diagnosis: schema.string({ trim: true }),

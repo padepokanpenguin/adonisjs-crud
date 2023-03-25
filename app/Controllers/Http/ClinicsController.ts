@@ -24,10 +24,12 @@ export default class ClinicsController {
     }
   }
 
-  public async store({ request, response }: HttpContextContract) {
+  public async store({ request, response, params }: HttpContextContract) {
     try {
+      const { doctor_id } = params;
       const payload = await request.validate(CreateClinicValidator);
       payload["id"] = uuidV4();
+      payload["doctor_id"] = doctor_id;
 
       const data = await Clinic.create(payload);
 

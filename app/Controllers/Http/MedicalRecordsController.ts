@@ -22,10 +22,12 @@ export default class MedicalRecordsController {
     }
   }
 
-  public async store({ request, response }: HttpContextContract) {
+  public async store({ request, response, params }: HttpContextContract) {
     try {
+      const { patient_id } = params;
       const payload = await request.validate(CreateMedicalRecordValidator);
       payload["id"] = uuidV4();
+      payload["patient_id"] = patient_id;
       const data = await MedicalRecord.create(payload);
 
       response.created({ message: "Berhasil membuat data", data });
