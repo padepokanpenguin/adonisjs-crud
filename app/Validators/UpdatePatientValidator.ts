@@ -26,6 +26,7 @@ export default class UpdatePatientValidator {
   public schema = schema.create({
     regist_by: schema.string.optional({ trim: true }, [
       rules.uuid({ version: 4 }),
+      rules.exists({ table: "employees", column: "id" }),
     ]),
     nik: schema.string.optional({ trim: true }, [rules.minLength(16)]),
     name: schema.string.optional({ trim: true }),

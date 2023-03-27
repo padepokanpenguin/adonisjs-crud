@@ -7,6 +7,7 @@ export default class UpdateTransactionDetailValidator {
   public schema = schema.create({
     transaction_id: schema.string.optional({ trim: true }, [
       rules.uuid({ version: 4 }),
+      rules.exists({ table: "transactions", column: "id" }),
     ]),
     item: schema.string.optional({ trim: true }),
     cost: schema.number.optional(),

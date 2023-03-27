@@ -7,6 +7,7 @@ export default class UpdateRegistrationQueueValidator {
   public schema = schema.create({
     clinic_id: schema.string.optional({ trim: true }, [
       rules.uuid({ version: 4 }),
+      rules.exists({ table: "clinics", column: "id" }),
     ]),
     time: schema.date.optional({ format: "yyyy-MM-dd HH:mm:ss" }),
     status: schema.enum.optional(["new", "bail", "registered"]),

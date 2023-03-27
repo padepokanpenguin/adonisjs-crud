@@ -7,9 +7,16 @@ export default class CreateClinicQueueValidator {
   public schema = schema.create({
     registration_id: schema.string({ trim: true }, [
       rules.uuid({ version: 4 }),
+      rules.exists({ table: "registrations", column: "id" }),
     ]),
-    clinic_id: schema.string({ trim: true }, [rules.uuid({ version: 4 })]),
-    patient_id: schema.string({ trim: true }, [rules.uuid({ version: 4 })]),
+    clinic_id: schema.string({ trim: true }, [
+      rules.uuid({ version: 4 }),
+      rules.exists({ table: "clinic", column: "id" }),
+    ]),
+    patient_id: schema.string({ trim: true }, [
+      rules.uuid({ version: 4 }),
+      rules.exists({ table: "patients", column: "id" }),
+    ]),
     status: schema.enum(["bail", "done", "registered"]),
   });
 

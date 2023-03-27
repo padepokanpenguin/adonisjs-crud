@@ -12,6 +12,12 @@ import RegistrationQueue from "./RegistrationQueue";
 import ClinicQueue from "./ClinicQueue";
 
 export default class Clinic extends BaseModel {
+  public serializeExtras() {
+    return {
+      total_queues: this.$extras.total_queues
+    };
+  }
+
   @column({ isPrimary: true })
   public id: string;
 

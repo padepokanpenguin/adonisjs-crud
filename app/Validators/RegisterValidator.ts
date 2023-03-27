@@ -1,21 +1,17 @@
 import { schema, CustomMessages, rules } from "@ioc:Adonis/Core/Validator";
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 
-export default class UpdateClinicQueueValidator {
+export default class RegisterValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    registration_id: schema.string.optional({ trim: true }, [
+    employee_id: schema.string({ trim: true }, [
       rules.uuid({ version: 4 }),
       rules.exists({ table: "employees", column: "id" }),
     ]),
-    clinic_id: schema.string.optional({ trim: true }, [
-      rules.uuid({ version: 4 }),
-    ]),
-    patient_id: schema.string.optional({ trim: true }, [
-      rules.uuid({ version: 4 }),
-    ]),
-    status: schema.enum.optional(["bail", "done", "registered"]),
+    email: schema.string({ trim: true }, [rules.email()]),
+    password: schema.string({ trim: true }),
+    remember_me_token: schema.string.optional({ trim: true }),
   });
 
   /**

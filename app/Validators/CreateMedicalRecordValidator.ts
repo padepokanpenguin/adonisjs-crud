@@ -6,7 +6,10 @@ export default class CreateMedicalRecordValidator {
 
   public schema = schema.create({
     // doctor_id: schema.string({ trim: true }, [rules.uuid({ version: 4 })]),
-    patient_id: schema.string({ trim: true }, [rules.uuid({ version: 4 })]),
+    patient_id: schema.string({ trim: true }, [
+      rules.uuid({ version: 4 }),
+      rules.exists({ table: "patients", column: "id" }),
+    ]),
     complaint: schema.string({ trim: true }),
     diagnosis: schema.string({ trim: true }),
     time: schema.date({ format: "yyyy-MM-dd HH:mm:ss" }),

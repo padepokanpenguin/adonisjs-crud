@@ -10,6 +10,7 @@ import {
 import Doctor from "./Doctor";
 import Pharmacist from "./Pharmacist";
 import Patient from "./Patient";
+import User from "./User";
 
 export default class Employee extends BaseModel {
   @column({ isPrimary: true })
@@ -33,7 +34,7 @@ export default class Employee extends BaseModel {
   @column()
   public role: string;
 
-  @column.date({autoCreate: true})
+  @column.date({ autoCreate: true })
   public joinDate: DateTime;
 
   @column()
@@ -59,6 +60,9 @@ export default class Employee extends BaseModel {
 
   @hasOne(() => Pharmacist)
   public pharmacist: HasOne<typeof Pharmacist>;
+
+  @hasOne(() => User)
+  public user: HasOne<typeof User>;
 
   @hasMany(() => Patient, {
     foreignKey: "registBy",

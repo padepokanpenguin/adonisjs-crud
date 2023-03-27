@@ -7,6 +7,7 @@ export default class UpdateTransactionValidator {
   public schema = schema.create({
     clinic_queue_id: schema.string.optional({ trim: true }, [
       rules.uuid({ version: 4 }),
+      rules.exists({ table: "clinic_queues", column: "id" }),
     ]),
     medical_record_id: schema.string.optional({ trim: true }, [
       rules.uuid({ version: 4 }),

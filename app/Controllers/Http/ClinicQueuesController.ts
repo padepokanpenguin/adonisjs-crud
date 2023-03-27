@@ -5,12 +5,24 @@ import UpdateClinicQueueValidator from "App/Validators/UpdateClinicQueueValidato
 import { v4 as uuidV4 } from "uuid";
 
 export default class ClinicQueuesController {
-  public async index({ response }: HttpContextContract) {
+  public async index({ response, params }: HttpContextContract) {
     try {
+      const { clinic_id } = params;
+
       const data = await ClinicQueue.query()
         .preload("clinic")
-        .preload("patient")
-        .preload("registrationQueue");
+        .preload("patient", (q) =>
+          q.select(
+            "regist_by",
+            "name",
+            "email",
+            "username",
+            "email",
+            "status",
+            "gender"
+          )
+        )
+        .where("clinic_id", "=", clinic_id);
 
       response.created({
         message: "Berhasil mengambil data antrian klinik",
@@ -21,10 +33,12 @@ export default class ClinicQueuesController {
     }
   }
 
-  public async store({ request, response }: HttpContextContract) {
+  public async store({ request, response, params }: HttpContextContract) {
     try {
+      const { clinic_id } = params;
       const payload = await request.validate(CreateClinicQueueValidator);
       payload["id"] = uuidV4();
+      payload["clinic_id"] = clinic_id;
 
       const data = await ClinicQueue.create(payload);
 
@@ -41,7 +55,19 @@ export default class ClinicQueuesController {
     try {
       const { id } = params;
 
-      const data = await ClinicQueue.findByOrFail("id", id);
+      const data = await ClinicQueue.query()
+        .preload("patient", (q) =>
+          q.select(
+            "regist_by",
+            "name",
+            "email",
+            "username",
+            "email",
+            "status",
+            "gender"
+          )
+        )
+        .where("id", "=", id);
       response.created({
         message: "Berhasil mendapatkan detail data antrian clinic",
         data,

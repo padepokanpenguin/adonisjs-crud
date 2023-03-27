@@ -7,16 +7,18 @@ import CreateClinicValidator from "App/Validators/CreateClinicValidator";
 import UpdateClinicValidator from "App/Validators/UpdateClinicValidator";
 
 export default class ClinicsController {
-  public async index({ response, params }: HttpContextContract) {
+  public async index({ response }: HttpContextContract) {
     try {
-      const { doctor_id } = params;
       const data = await Clinic.query()
         .preload("doctor", (query) =>
           query.preload("employee", (q) =>
             q.select("id", "name", "username", "role", "join_date", "email")
           )
         )
-        .where("doctor_id", "=", doctor_id);
+        .withAggregate("clinicQueue", (cq) => {
+          cq.count("*").as("total_queues");
+          // cq.where("created_at", "=", new Date());
+        });
 
       response.created({ message: "Berhasil mengambil data klinik ", data });
     } catch (e) {
@@ -24,12 +26,10 @@ export default class ClinicsController {
     }
   }
 
-  public async store({ request, response, params }: HttpContextContract) {
+  public async store({ request, response }: HttpContextContract) {
     try {
-      const { doctor_id } = params;
       const payload = await request.validate(CreateClinicValidator);
       payload["id"] = uuidV4();
-      payload["doctor_id"] = doctor_id;
 
       const data = await Clinic.create(payload);
 
