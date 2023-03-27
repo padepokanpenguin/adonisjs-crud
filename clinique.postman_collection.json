@@ -1,0 +1,1225 @@
+{
+	"info": {
+		"_postman_id": "d81b3ca2-0c36-4d98-91fa-8fbfba3d84cd",
+		"name": "clinique",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20220881"
+	},
+	"item": [
+		{
+			"name": "Employee",
+			"item": [
+				{
+					"name": "Get All Employee",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/employees",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get detail employee",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/employees/{{EMPLOYEE_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"employees",
+								"{{EMPLOYEE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete employee",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/employees/{{EMPLOYEE_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"employees",
+								"{{EMPLOYEE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update detail employee",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"specialization\": \"membuat masalah\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/employees/{{EMPLOYEE_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"employees",
+								"{{EMPLOYEE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Kurohie\",\n    \"email\": \"kurohige@mail.com\",\n    \"username\": \"kurohige\",\n    \"password\": \"Qwerty12345\",\n    \"nik\": \"3326160101810012\",\n    \"role\": \"admin\",\n    \"gender\": \"male\",\n    \"specialization\": \"yami\",\n    \"address\": \"West Blue\",\n    \"phone_number\": \"62819010198210\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/employees",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctors",
+			"item": [
+				{
+					"name": "Get All Doctor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/doctors/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"doctors",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get detail doctor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/doctors/{{DOCTOR_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"doctors",
+								"{{DOCTOR_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update doctor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fee\": 290000\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/doctors/{{DOCTOR_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"doctors",
+								"{{DOCTOR_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create doctor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"employee_id\": \"d850fba0-3e30-40dc-a4d2-0c1e00683cb5\",\n    \"license_number\": \"ini license number doktor umum\",\n    \"fee\": 250000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/doctors",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"doctors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete doctor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/doctors/{{DOCTOR_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"doctors",
+								"{{DOCTOR_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pharmacists",
+			"item": [
+				{
+					"name": "Get all pharmacists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/pharmacists",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pharmacists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create pharmacist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"employee_id\": \"04fc2822-3075-41fa-9383-d2aede0eb625\",\n    \"license_number\": \"ini license number apoteker\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/pharmacists",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pharmacists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get detail's pharmacist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/pharmacists/{{PHARMACIST_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pharmacists",
+								"{{PHARMACIST_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update pharmacist",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"license_number\": \"ini license number apoteker yng diupdate\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/pharmacists/{{PHARMACIST_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pharmacists",
+								"{{PHARMACIST_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete pharmacist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/pharmacists/{{PHARMACIST_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pharmacists",
+								"{{PHARMACIST_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clinics",
+			"item": [
+				{
+					"name": "get all clinics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/doctors/{{DOCTOR_ID}}/clinics",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"doctors",
+								"{{DOCTOR_ID}}",
+								"clinics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create clinic",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"doctor_id\": \"a015f848-cbd1-4cbc-acaa-72eda5aff5f7\",\n    \"name\" : \"poli gege\",\n    \"room\": \"Mawar Melati\",\n    \"daily_quota\": 15\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/doctors/{{DOCTOR_ID}}/clinics",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"doctors",
+								"{{DOCTOR_ID}}",
+								"clinics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get detail clinic",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/clinics/{{CLINIC_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"clinics",
+								"{{CLINIC_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update clinic",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"daily_quota\": 20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/clinics/{{CLINIC_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"clinics",
+								"{{CLINIC_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete clinic",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/clinics/{{CLINIC_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"clinics",
+								"{{CLINIC_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patients",
+			"item": [
+				{
+					"name": "get all patients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/patients",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get detail's patients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/patients/{{PATIENT_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients",
+								"{{PATIENT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update patient",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"married\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/patients/{{PATIENT_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients",
+								"{{PATIENT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete patient",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/patients/{{PATIENT_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients",
+								"{{PATIENT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create patient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"regist_by\": \"65ddaf70-c9b3-46e4-95e7-db5cd52c46ac\",\n    \"nik\": \"3326160101810011\",\n    \"name\": \"Sick Man Part 4\",\n    \"email\": \"sickman@mail.com\",\n    \"username\": \"sicker3\",\n    \"password\": \"apacobahayoo\",\n    \"status\": \"single\",\n    \"gender\": \"male\",\n    \"address\": \"Jalan Buncit Raya Ragunan\",\n    \"phone_number\": \"0812345678901234\",\n    \"birth_day\": \"1999-12-31\",\n    \"register_date\": \"2023-03-19\",\n    \"is_verified\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/patients",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Registration Queue",
+			"item": [
+				{
+					"name": "get all registration queues",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/registration-queues",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"registration-queues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create registration queues",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clinic_id\": \"208fd088-ef7d-4806-b283-a0904c8e9631\",\n  \"time\": \"2023-03-22 10:05:15\",\n  \"status\": \"new\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/registration-queues",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"registration-queues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get detail's registration queue",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clinic_id\": \"3d53a9d3-8265-4a3d-9bd3-07db019ef27b\",\n  \"status\": \"new\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/registration-queues/{{REGISTRATION_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"registration-queues",
+								"{{REGISTRATION_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update registration queue",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \n  \"status\": \"registered\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/registration-queues/{{REGISTRATION_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"registration-queues",
+								"{{REGISTRATION_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete registration queue",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \n  \"status\": \"registered\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/registration-queues/{{REGISTRATION_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"registration-queues",
+								"{{REGISTRATION_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clinic Queues",
+			"item": [
+				{
+					"name": "get all clinic queues",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/clinic-queues",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"clinic-queues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get clinic queue",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/clinic-queues/{{CLINIC_QUEUE_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"clinic-queues",
+								"{{CLINIC_QUEUE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update clinic queue",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"done\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/clinic-queues/{{CLINIC_QUEUE_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"clinic-queues",
+								"{{CLINIC_QUEUE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete clinic queue",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/clinic-queues/{{CLINIC_QUEUE_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"clinic-queues",
+								"{{CLINIC_QUEUE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create clinic queue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"registration_id\": \"8a8f96ea-3a22-49db-b84d-c7c726eb9bc4\",\n    \"clinic_id\": \"208fd088-ef7d-4806-b283-a0904c8e9631\",\n    \"patient_id\": \"77d317ea-1478-45e0-bc61-c9561c3e99db\",\n    \"status\": \"bail\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/clinic-queues",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"clinic-queues"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Medical Records",
+			"item": [
+				{
+					"name": "get all medical records",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/patients/{{PATIENT_ID}}/medical-records",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients",
+								"{{PATIENT_ID}}",
+								"medical-records"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create medical record",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"doctor_id\": \"813de0c2-5f56-4749-af98-54ddfc8415c9\",\n    \"patient_id\": \"b4832faf-2046-4522-a176-2161ee39df95\",\n    \"complaint\": \"bibir pecah-pecah, panas dalam, sariawan, gusi berdarah, sering mual, encok, dsb\",\n    \"diagnosis\": \"komplikasi akut\",\n    \"time\": \"2023-03-22 12:10:10\",\n    \"treatment\": \"jongkok 3 menit setiap hari\",\n    \"weight\": 60.5,\n    \"blood_pressure\": \"200cc\",\n    \"note\": \"Jangan lupa ibadah\",\n    \"prescription\": \"gurah cuy\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/patients/{{PATIENT_ID}}/medical-records",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients",
+								"{{PATIENT_ID}}",
+								"medical-records"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get medical record",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/medical-records/{{MEDICAL_RECORD_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"medical-records",
+								"{{MEDICAL_RECORD_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update medical record",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"diagnosis\": \"komplikasi parah\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/medical-records/{{MEDICAL_RECORD_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"medical-records",
+								"{{MEDICAL_RECORD_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete medical record",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/medical-records/{{MEDICAL_RECORD_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"medical-records",
+								"{{MEDICAL_RECORD_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transactions",
+			"item": [
+				{
+					"name": "get all transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/transactions",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create transactions",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clinic_queue_id\": \"af8c0213-5a0b-43cc-bab4-3694bae44af2\",\n    \"medical_record_id\": \"0edd1f42-096e-4a11-aa5a-0464278b7b39\",\n    \"total_cost\": 500000,\n    \"status\": \"unpaid\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/transactions",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get detail transaction",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/transactions/{{TRANSACTION_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions",
+								"{{TRANSACTION_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update transaction",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"paid\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/transactions/{{TRANSACTION_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions",
+								"{{TRANSACTION_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete transaction",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"paid\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/transactions/{{TRANSACTION_ID}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions",
+								"{{TRANSACTION_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction Details",
+			"item": [
+				{
+					"name": "create transaction detail",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item\": \"amoxicilin\",\n    \"cost\": 10000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/transactions/02f28206-c26b-480f-be67-83c7a3fb3f3f/transactions-details",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions",
+								"02f28206-c26b-480f-be67-83c7a3fb3f3f",
+								"transactions-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get  transaction detail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item\": \"amoxicilin\",\n    \"cost\": 10000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/transactions-details/2ab95469-685a-4a8b-8861-cdbdb61e2d90",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions-details",
+								"2ab95469-685a-4a8b-8861-cdbdb61e2d90"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update  transaction detail",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item\": \"laserin\",\n    \"cost\": 10000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/transactions-details/2ab95469-685a-4a8b-8861-cdbdb61e2d90",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions-details",
+								"2ab95469-685a-4a8b-8861-cdbdb61e2d90"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete transaction detail",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item\": \"laserin\",\n    \"cost\": 10000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/transactions-details/2ab95469-685a-4a8b-8861-cdbdb61e2d90",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions-details",
+								"2ab95469-685a-4a8b-8861-cdbdb61e2d90"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all transaction detail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item\": \"bodrex\",\n    \"cost\": 10000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/transactions/02f28206-c26b-480f-be67-83c7a3fb3f3f/transactions-details",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions",
+								"02f28206-c26b-480f-be67-83c7a3fb3f3f",
+								"transactions-details"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
