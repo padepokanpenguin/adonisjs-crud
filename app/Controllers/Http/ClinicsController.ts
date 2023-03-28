@@ -5,6 +5,7 @@ import { v4 as uuidV4 } from "uuid";
 import Clinic from "App/Models/Clinic";
 import CreateClinicValidator from "App/Validators/CreateClinicValidator";
 import UpdateClinicValidator from "App/Validators/UpdateClinicValidator";
+import { DateTime } from "luxon";
 
 export default class ClinicsController {
   public async index({ response }: HttpContextContract) {
@@ -17,7 +18,9 @@ export default class ClinicsController {
         )
         .withAggregate("clinicQueue", (cq) => {
           cq.count("*").as("total_queues");
-          // cq.where("created_at", "=", new Date());
+          cq.whereRaw(
+            `created_at::date = ${DateTime.now().toFormat("yyyy-MM-dd")}::date`
+          );
         });
 
       response.created({ message: "Berhasil mengambil data klinik ", data });

@@ -1,5 +1,14 @@
 import { DateTime } from "luxon";
-import { BaseModel, BelongsTo, belongsTo, column, HasOne, hasOne } from "@ioc:Adonis/Lucid/Orm";
+import {
+  BaseModel,
+  beforeCreate,
+  BelongsTo,
+  belongsTo,
+  column,
+  HasOne,
+  hasOne,
+} from "@ioc:Adonis/Lucid/Orm";
+import { v4 as uuidV4 } from "uuid";
 import RegistrationQueue from "./RegistrationQueue";
 import Clinic from "./Clinic";
 import Patient from "./Patient";
@@ -13,7 +22,7 @@ export default class ClinicQueue extends BaseModel {
   public registrationId: string;
 
   @belongsTo(() => RegistrationQueue, {
-    foreignKey: "registrationId"
+    foreignKey: "registrationId",
   })
   public registrationQueue: BelongsTo<typeof RegistrationQueue>;
 
@@ -27,7 +36,7 @@ export default class ClinicQueue extends BaseModel {
   public patientId: string;
 
   @belongsTo(() => Patient)
-  public patient: BelongsTo<typeof Patient>
+  public patient: BelongsTo<typeof Patient>;
 
   @column()
   public status: string;
@@ -39,6 +48,10 @@ export default class ClinicQueue extends BaseModel {
   public updatedAt: DateTime;
 
   @hasOne(() => Transaction)
-  public transaction: HasOne<typeof Transaction>
+  public transaction: HasOne<typeof Transaction>;
 
+  @beforeCreate()
+  public static async generateId(cq: ClinicQueue) {
+    cq.id = uuidV4();
+  }
 }

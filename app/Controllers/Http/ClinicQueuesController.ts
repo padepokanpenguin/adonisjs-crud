@@ -1,8 +1,9 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import Clinic from "App/Models/Clinic";
 import ClinicQueue from "App/Models/ClinicQueue";
 import CreateClinicQueueValidator from "App/Validators/CreateClinicQueueValidator";
 import UpdateClinicQueueValidator from "App/Validators/UpdateClinicQueueValidator";
-import { v4 as uuidV4 } from "uuid";
+import { DateTime } from "luxon";
 
 export default class ClinicQueuesController {
   public async index({ response, params }: HttpContextContract) {
@@ -37,9 +38,26 @@ export default class ClinicQueuesController {
     try {
       const { clinic_id } = params;
       const payload = await request.validate(CreateClinicQueueValidator);
-      payload["id"] = uuidV4();
       payload["clinic_id"] = clinic_id;
 
+      const clinic = await Clinic.query()
+        .preload("doctor", (query) =>
+          query.preload("employee", (q) =>
+            q.select("id", "name", "username", "role", "join_date", "email")
+          )
+        )
+        .preload("clinicQueue", (cq) => {
+          cq.whereRaw(
+            `'created_at::date = ${DateTime.now().toFormat(
+              "yyyy-MM-dd"
+            )}'::date`
+          );
+        })
+        .firstOrFail();
+
+      if (clinic.$extras["total_queues"] >= clinic.daily_quota) {
+        response.badRequest({ message: "Kuota Penuh" });
+      }
       const data = await ClinicQueue.create(payload);
 
       response.created({

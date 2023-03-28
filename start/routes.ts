@@ -14,11 +14,19 @@ Route.post("/logout", async ({ auth, response }) => {
 });
 
 Route.group(() => {
-  Route.get("/employees", "EmployeesController.index");
-  Route.get("/employees/:id", "EmployeesController.show");
-  Route.post("/employees", "EmployeesController.store");
-  Route.put("/employees/:id", "EmployeesController.update");
-  Route.delete("/employees/:id", "EmployeesController.destroy");
+  Route.get("/employees", "EmployeesController.index").middleware(
+    "checkRole:doctor,admin,pharmacy"
+  );
+  Route.get("/employees/:id", "EmployeesController.show").middleware(
+    "checkRole:doctor,admin"
+  );
+  Route.post("/employees", "EmployeesController.store").middleware("checkRole:doctor,admin");
+  Route.put("/employees/:id", "EmployeesController.update").middleware(
+    "checkRole:doctor,admin"
+  );
+  Route.delete("/employees/:id", "EmployeesController.destroy").middleware(
+    "checkRole:admin"
+  );
   Route.resource("/pharmacists", "PharmacistsController").apiOnly();
   Route.resource("/doctors", "DoctorsController").apiOnly();
   Route.resource("/clinics", "ClinicsController").apiOnly();
