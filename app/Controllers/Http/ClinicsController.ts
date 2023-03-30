@@ -1,7 +1,5 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-// import Database from "@ioc:Adonis/Lucid/Database";
 import { v4 as uuidV4 } from "uuid";
-// import { TABLE_NAME } from "App/Utils/helper";
 import Clinic from "App/Models/Clinic";
 import CreateClinicValidator from "App/Validators/CreateClinicValidator";
 import UpdateClinicValidator from "App/Validators/UpdateClinicValidator";
@@ -19,7 +17,7 @@ export default class ClinicsController {
         .withAggregate("clinicQueue", (cq) => {
           cq.count("*").as("total_queues");
           cq.whereRaw(
-            `created_at::date = ${DateTime.now().toFormat("yyyy-MM-dd")}::date`
+            `created_at::date = '${DateTime.now().toFormat("yyyy-MM-dd")}'::date`
           );
         });
 

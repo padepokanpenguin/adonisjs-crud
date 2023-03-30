@@ -9,7 +9,9 @@ import UploadImagePatientValidator from "App/Validators/UploadImagePatientValida
 export default class PatientsController {
   public async index({ response }: HttpContextContract) {
     try {
-      const data = await Patient.query().preload("employee");
+      const data = await Patient.query().preload("employee", (query) =>
+        query.select("id", "name", "username", "role", "join_date", "email")
+      );
 
       response.created({ message: "Berhasil mengambil data pasien", data });
     } catch (error) {

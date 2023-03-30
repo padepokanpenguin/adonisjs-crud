@@ -48,7 +48,7 @@ export default class ClinicQueuesController {
         )
         .preload("clinicQueue", (cq) => {
           cq.whereRaw(
-            `'created_at::date = ${DateTime.now().toFormat(
+            `created_at::date = '${DateTime.now().toFormat(
               "yyyy-MM-dd"
             )}'::date`
           );

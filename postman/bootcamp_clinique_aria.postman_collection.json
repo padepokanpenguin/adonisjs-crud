@@ -33,7 +33,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Kurohie\",\n    \"email\": \"kurohige@mail.com\",\n    \"username\": \"kurohige\",\n    \"password\": \"Qwerty12345\",\n    \"nik\": \"3326160101810012\",\n    \"role\": \"admin\",\n    \"gender\": \"male\",\n    \"specialization\": \"yami\",\n    \"address\": \"West Blue\",\n    \"phone_number\": \"62819010198210\"\n}",
+							"raw": "{\n    \"name\": \"Akahige\",\n    \"email\": \"akahigee@mail.com\",\n    \"username\": \"akahige\",\n    \"password\": \"Qwerty12345\",\n    \"nik\": \"3326160101810011\",\n    \"role\": \"admin\",\n    \"gender\": \"male\",\n    \"specialization\": \"kemerah-merahan\",\n    \"address\": \"West Blue\",\n    \"phone_number\": \"62819010198210\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -204,7 +204,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"employee_id\": \"d850fba0-3e30-40dc-a4d2-0c1e00683cb5\",\n    \"license_number\": \"ini license number doktor umum\",\n    \"fee\": 250000\n}",
+							"raw": "{\n    \"employee_id\": \"836a71b5-e3c8-4ddc-ade3-01463e7a7cf1\",\n    \"license_number\": \"ini license number doktor umum\",\n    \"fee\": 250000\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -234,7 +234,7 @@
 								{
 									"key": "imageProfile",
 									"type": "file",
-									"src": "/home/rumahpenguinid/Pictures/webIQ/img1.jpg"
+									"src": "/home/rumahpenguinid/Pictures/webIQ/img2.jpg"
 								}
 							]
 						},
@@ -412,7 +412,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"employee_id\": \"04fc2822-3075-41fa-9383-d2aede0eb625\",\n    \"license_number\": \"ini license number apoteker\"\n}",
+							"raw": "{\n    \"employee_id\": \"836a71b5-e3c8-4ddc-ade3-01463e7a7cf1\",\n    \"license_number\": \"ini license number apoteker\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -535,13 +535,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/doctors/{{DOCTOR_ID}}/clinics",
+							"raw": "{{URL}}/clinics",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"doctors",
-								"{{DOCTOR_ID}}",
 								"clinics"
 							]
 						}
@@ -563,13 +561,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/doctors/{{DOCTOR_ID}}/clinics",
+							"raw": "{{URL}}/clinics",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"doctors",
-								"{{DOCTOR_ID}}",
 								"clinics"
 							]
 						}
@@ -650,6 +646,36 @@
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
 			]
 		},
 		{
@@ -679,7 +705,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"regist_by\": \"65ddaf70-c9b3-46e4-95e7-db5cd52c46ac\",\n    \"nik\": \"3326160101810011\",\n    \"name\": \"Sick Man Part 4\",\n    \"email\": \"sickman@mail.com\",\n    \"username\": \"sicker3\",\n    \"password\": \"apacobahayoo\",\n    \"status\": \"single\",\n    \"gender\": \"male\",\n    \"address\": \"Jalan Buncit Raya Ragunan\",\n    \"phone_number\": \"0812345678901234\",\n    \"birth_day\": \"1999-12-31\",\n    \"register_date\": \"2023-03-19\",\n    \"is_verified\": true\n}",
+							"raw": "{\n    \"regist_by\": \"65ddaf70-c9b3-46e4-95e7-db5cd52c46ac\",\n    \"nik\": \"3326160101810011\",\n    \"name\": \"Sick Man Part 3\",\n    \"email\": \"sickman@mail.com\",\n    \"username\": \"sicker3\",\n    \"password\": \"apacobahayoo\",\n    \"status\": \"single\",\n    \"gender\": \"male\",\n    \"address\": \"Jalan Buncit Raya Ragunan\",\n    \"phone_number\": \"0812345678901234\",\n    \"birth_day\": \"1999-12-31\",\n    \"register_date\": \"2023-03-19\",\n    \"is_verified\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -709,7 +735,7 @@
 								{
 									"key": "imageProfile",
 									"type": "file",
-									"src": "/home/rumahpenguinid/Pictures/webIQ/img3.jpg"
+									"src": "/home/rumahpenguinid/Pictures/webIQ/img2.jpg"
 								}
 							]
 						},
@@ -789,6 +815,36 @@
 						}
 					},
 					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -922,6 +978,36 @@
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
 			]
 		},
 		{
@@ -933,11 +1019,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/clinic-queues",
+							"raw": "{{URL}}/clinics/{{CLINIC_ID}}/clinic-queues",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
+								"clinics",
+								"{{CLINIC_ID}}",
 								"clinic-queues"
 							]
 						}
@@ -951,7 +1039,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"registration_id\": \"8a8f96ea-3a22-49db-b84d-c7c726eb9bc4\",\n    \"clinic_id\": \"208fd088-ef7d-4806-b283-a0904c8e9631\",\n    \"patient_id\": \"77d317ea-1478-45e0-bc61-c9561c3e99db\",\n    \"status\": \"bail\"\n}",
+							"raw": "{\n    \"registration_id\": \"b684b45f-b146-49d8-a8a9-183728f4083e\",\n    \"patient_id\": \"77d317ea-1478-45e0-bc61-c9561c3e99db\",\n    \"status\": \"bail\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -959,11 +1047,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/clinic-queues",
+							"raw": "{{URL}}/clinics/{{CLINIC_ID}}/clinic-queues",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
+								"clinics",
+								"{{CLINIC_ID}}",
 								"clinic-queues"
 							]
 						}
@@ -1033,6 +1123,36 @@
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
 			]
 		},
 		{
@@ -1064,7 +1184,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"doctor_id\": \"813de0c2-5f56-4749-af98-54ddfc8415c9\",\n    \"patient_id\": \"b4832faf-2046-4522-a176-2161ee39df95\",\n    \"complaint\": \"bibir pecah-pecah, panas dalam, sariawan, gusi berdarah, sering mual, encok, dsb\",\n    \"diagnosis\": \"komplikasi akut\",\n    \"time\": \"2023-03-22 12:10:10\",\n    \"treatment\": \"jongkok 3 menit setiap hari\",\n    \"weight\": 60.5,\n    \"blood_pressure\": \"200cc\",\n    \"note\": \"Jangan lupa ibadah\",\n    \"prescription\": \"gurah cuy\"\n}",
+							"raw": "{\n    \"doctor_id\": \"813de0c2-5f56-4749-af98-54ddfc8415c9\",\n    \"patient_id\": \"b4832faf-2046-4522-a176-2161ee39df95\",\n    \"complaint\": \"bibir pecah-pecah, panas dalam, sariawan, gusi berdarah, sering mual\",\n    \"diagnosis\": \"komplikasi akut\",\n    \"time\": \"2023-03-22 12:10:10\",\n    \"treatment\": \"jongkok 3 menit setiap hari\",\n    \"weight\": 60.5,\n    \"blood_pressure\": \"200cc\",\n    \"note\": \"Jangan lupa ibadah\",\n    \"prescription\": \"gurah cuy\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1186,7 +1306,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"clinic_queue_id\": \"af8c0213-5a0b-43cc-bab4-3694bae44af2\",\n    \"medical_record_id\": \"0edd1f42-096e-4a11-aa5a-0464278b7b39\",\n    \"total_cost\": 500000,\n    \"status\": \"unpaid\"\n}",
+							"raw": "{\n    \"clinic_queue_id\": \"af8c0213-5a0b-43cc-bab4-3694bae44af2\",\n    \"medical_record_id\": \"{{MEDICAL_RECORD_ID}}\",\n    \"total_cost\": 500000,\n    \"status\": \"unpaid\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1300,13 +1420,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/transactions/02f28206-c26b-480f-be67-83c7a3fb3f3f/transactions-details",
+							"raw": "{{URL}}/transactions/{{TRANSACTION_ID}}/transactions-details",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"transactions",
-								"02f28206-c26b-480f-be67-83c7a3fb3f3f",
+								"{{TRANSACTION_ID}}",
 								"transactions-details"
 							]
 						}
@@ -1328,13 +1448,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/transactions/02f28206-c26b-480f-be67-83c7a3fb3f3f/transactions-details",
+							"raw": "{{URL}}/transactions/{{TRANSACTION_ID}}/transactions-details",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"transactions",
-								"02f28206-c26b-480f-be67-83c7a3fb3f3f",
+								"{{TRANSACTION_ID}}",
 								"transactions-details"
 							]
 						}
@@ -1359,13 +1479,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/transactions-details/2ab95469-685a-4a8b-8861-cdbdb61e2d90",
+							"raw": "{{URL}}/transactions-details/{{TRANSACTION_DETAIL_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"transactions-details",
-								"2ab95469-685a-4a8b-8861-cdbdb61e2d90"
+								"{{TRANSACTION_DETAIL_ID}}"
 							]
 						}
 					},
@@ -1386,13 +1506,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/transactions-details/2ab95469-685a-4a8b-8861-cdbdb61e2d90",
+							"raw": "{{URL}}/transactions-details/{{TRANSACTION_DETAIL_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"transactions-details",
-								"2ab95469-685a-4a8b-8861-cdbdb61e2d90"
+								"{{TRANSACTION_DETAIL_ID}}"
 							]
 						}
 					},
@@ -1413,13 +1533,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/transactions-details/2ab95469-685a-4a8b-8861-cdbdb61e2d90",
+							"raw": "{{URL}}/transactions-details/{{TRANSACTION_DETAIL_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"transactions-details",
-								"2ab95469-685a-4a8b-8861-cdbdb61e2d90"
+								"{{TRANSACTION_DETAIL_ID}}"
 							]
 						}
 					},
@@ -1541,6 +1661,16 @@
 			]
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
