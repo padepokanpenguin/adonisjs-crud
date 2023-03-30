@@ -27,27 +27,64 @@
 					"response": []
 				},
 				{
-					"name": "Get detail employee",
+					"name": "Create employee",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Kurohie\",\n    \"email\": \"kurohige@mail.com\",\n    \"username\": \"kurohige\",\n    \"password\": \"Qwerty12345\",\n    \"nik\": \"3326160101810012\",\n    \"role\": \"admin\",\n    \"gender\": \"male\",\n    \"specialization\": \"yami\",\n    \"address\": \"West Blue\",\n    \"phone_number\": \"62819010198210\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{URL}}/employees/{{EMPLOYEE_ID}}",
+							"raw": "{{URL}}/employees",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"employees",
-								"{{EMPLOYEE_ID}}"
+								"employees"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "delete employee",
+					"name": "upload image employee",
 					"request": {
-						"method": "DELETE",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imageProfile",
+									"type": "file",
+									"src": "/home/rumahpenguinid/Pictures/webIQ/img2.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/employees/{{EMPLOYEE_ID}}/upload",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"employees",
+								"{{EMPLOYEE_ID}}",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get detail employee",
+					"request": {
+						"method": "GET",
 						"header": [],
 						"url": {
 							"raw": "{{URL}}/employees/{{EMPLOYEE_ID}}",
@@ -90,26 +127,18 @@
 					"response": []
 				},
 				{
-					"name": "Create employee",
+					"name": "delete employee",
 					"request": {
-						"method": "POST",
+						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Kurohie\",\n    \"email\": \"kurohige@mail.com\",\n    \"username\": \"kurohige\",\n    \"password\": \"Qwerty12345\",\n    \"nik\": \"3326160101810012\",\n    \"role\": \"admin\",\n    \"gender\": \"male\",\n    \"specialization\": \"yami\",\n    \"address\": \"West Blue\",\n    \"phone_number\": \"62819010198210\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "{{URL}}/employees",
+							"raw": "{{URL}}/employees/{{EMPLOYEE_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"employees"
+								"employees",
+								"{{EMPLOYEE_ID}}"
 							]
 						}
 					},
@@ -169,6 +198,61 @@
 					"response": []
 				},
 				{
+					"name": "create doctor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"employee_id\": \"d850fba0-3e30-40dc-a4d2-0c1e00683cb5\",\n    \"license_number\": \"ini license number doktor umum\",\n    \"fee\": 250000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/doctors",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"doctors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imageProfile",
+									"type": "file",
+									"src": "/home/rumahpenguinid/Pictures/webIQ/img1.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/doctors/{{DOCTOR_ID}}/upload",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"doctors",
+								"{{DOCTOR_ID}}",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "get detail doctor",
 					"request": {
 						"method": "GET",
@@ -208,32 +292,6 @@
 							"path": [
 								"doctors",
 								"{{DOCTOR_ID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create doctor",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"employee_id\": \"d850fba0-3e30-40dc-a4d2-0c1e00683cb5\",\n    \"license_number\": \"ini license number doktor umum\",\n    \"fee\": 250000\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/doctors",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"doctors"
 							]
 						}
 					},
@@ -319,6 +377,35 @@
 					"response": []
 				},
 				{
+					"name": "Upload image pharmacist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imageProfile",
+									"type": "file",
+									"src": "/home/rumahpenguinid/Pictures/webIQ/img2.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/pharmacists/{{PHARMACIST_ID}}/upload",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pharmacists",
+								"{{PHARMACIST_ID}}",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create pharmacist",
 					"request": {
 						"method": "POST",
@@ -392,7 +479,7 @@
 				{
 					"name": "delete pharmacist",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
 						"url": {
 							"raw": "{{URL}}/pharmacists/{{PHARMACIST_ID}}",
@@ -586,6 +673,61 @@
 					"response": []
 				},
 				{
+					"name": "create patient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"regist_by\": \"65ddaf70-c9b3-46e4-95e7-db5cd52c46ac\",\n    \"nik\": \"3326160101810011\",\n    \"name\": \"Sick Man Part 4\",\n    \"email\": \"sickman@mail.com\",\n    \"username\": \"sicker3\",\n    \"password\": \"apacobahayoo\",\n    \"status\": \"single\",\n    \"gender\": \"male\",\n    \"address\": \"Jalan Buncit Raya Ragunan\",\n    \"phone_number\": \"0812345678901234\",\n    \"birth_day\": \"1999-12-31\",\n    \"register_date\": \"2023-03-19\",\n    \"is_verified\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/patients",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload image patient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imageProfile",
+									"type": "file",
+									"src": "/home/rumahpenguinid/Pictures/webIQ/img3.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/patients/{{PATIENT_ID}}/upload",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients",
+								"{{PATIENT_ID}}",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "get detail's patients",
 					"request": {
 						"method": "GET",
@@ -643,32 +785,6 @@
 							"path": [
 								"patients",
 								"{{PATIENT_ID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create patient",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"regist_by\": \"65ddaf70-c9b3-46e4-95e7-db5cd52c46ac\",\n    \"nik\": \"3326160101810011\",\n    \"name\": \"Sick Man Part 4\",\n    \"email\": \"sickman@mail.com\",\n    \"username\": \"sicker3\",\n    \"password\": \"apacobahayoo\",\n    \"status\": \"single\",\n    \"gender\": \"male\",\n    \"address\": \"Jalan Buncit Raya Ragunan\",\n    \"phone_number\": \"0812345678901234\",\n    \"birth_day\": \"1999-12-31\",\n    \"register_date\": \"2023-03-19\",\n    \"is_verified\": true\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/patients",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"patients"
 							]
 						}
 					},
@@ -829,6 +945,32 @@
 					"response": []
 				},
 				{
+					"name": "create clinic queue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"registration_id\": \"8a8f96ea-3a22-49db-b84d-c7c726eb9bc4\",\n    \"clinic_id\": \"208fd088-ef7d-4806-b283-a0904c8e9631\",\n    \"patient_id\": \"77d317ea-1478-45e0-bc61-c9561c3e99db\",\n    \"status\": \"bail\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/clinic-queues",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"clinic-queues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "get clinic queue",
 					"request": {
 						"method": "GET",
@@ -886,32 +1028,6 @@
 							"path": [
 								"clinic-queues",
 								"{{CLINIC_QUEUE_ID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create clinic queue",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"registration_id\": \"8a8f96ea-3a22-49db-b84d-c7c726eb9bc4\",\n    \"clinic_id\": \"208fd088-ef7d-4806-b283-a0904c8e9631\",\n    \"patient_id\": \"77d317ea-1478-45e0-bc61-c9561c3e99db\",\n    \"status\": \"bail\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/clinic-queues",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"clinic-queues"
 							]
 						}
 					},
@@ -1167,6 +1283,37 @@
 			"name": "Transaction Details",
 			"item": [
 				{
+					"name": "get all transaction detail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item\": \"bodrex\",\n    \"cost\": 10000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/transactions/02f28206-c26b-480f-be67-83c7a3fb3f3f/transactions-details",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions",
+								"02f28206-c26b-480f-be67-83c7a3fb3f3f",
+								"transactions-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "create transaction detail",
 					"request": {
 						"method": "POST",
@@ -1273,37 +1420,6 @@
 							"path": [
 								"transactions-details",
 								"2ab95469-685a-4a8b-8861-cdbdb61e2d90"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get all transaction detail",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"item\": \"bodrex\",\n    \"cost\": 10000\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/transactions/02f28206-c26b-480f-be67-83c7a3fb3f3f/transactions-details",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"transactions",
-								"02f28206-c26b-480f-be67-83c7a3fb3f3f",
-								"transactions-details"
 							]
 						}
 					},
@@ -1425,16 +1541,6 @@
 			]
 		}
 	],
-	"auth": {
-		"type": "bearer",
-		"bearer": [
-			{
-				"key": "token",
-				"value": "{{TOKEN}}",
-				"type": "string"
-			}
-		]
-	},
 	"event": [
 		{
 			"listen": "prerequest",
