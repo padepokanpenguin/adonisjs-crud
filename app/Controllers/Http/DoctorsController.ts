@@ -1,7 +1,10 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import Drive from "@ioc:Adonis/Core/Drive";
 import Doctor from "App/Models/Doctor";
 import CreateDoctorValidator from "App/Validators/CreateDoctorValidator";
 import UpdateDoctorValidator from "App/Validators/UpdateDoctorValidator";
+import UploadImageDoctorValidator from "App/Validators/UploadImageDoctorValidator";
+import { DateTime } from "luxon";
 import { v4 as uuidV4 } from "uuid";
 
 export default class DoctorsController {
@@ -63,6 +66,40 @@ export default class DoctorsController {
       response.created({ message: "Doctor berhasil diupdate", data });
     } catch (error) {
       response.send({ message: error.message });
+    }
+  }
+
+  public async updloadImage({
+    request,
+    response,
+    params,
+  }: HttpContextContract) {
+    try {
+      const { id } = params;
+      const payload = await request.validate(UploadImageDoctorValidator);
+      const imageName =
+        DateTime.now().toUnixInteger() +
+        "_doctor." +
+        payload.imageProfile.extname;
+
+      if (payload.imageProfile) {
+        await payload.imageProfile.moveToDisk("doctors", {
+          name: imageName,
+        });
+      }
+
+      const url =
+        "http://127.0.0.1:3333" + (await Drive.getUrl("doctors/" + imageName));
+      const data = await Doctor.findByOrFail("id", id);
+
+      if (data.imageId) {
+        await Drive.delete("doctors/" + data.imageId);
+      }
+      await data.merge({ imageId: imageName }).save();
+      response.ok({ message: "Image berhasil di upload", data, url });
+    } catch (error) {
+      console.log(error);
+      response.send({ message: error });
     }
   }
 

@@ -18,6 +18,9 @@ export default class Pharmacist extends BaseModel {
   @column()
   public license_number: string;
 
+  @column()
+  public imageId: string;
+
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
 }

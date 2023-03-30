@@ -1,8 +1,11 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import Drive from "@ioc:Adonis/Core/Drive";
+import { DateTime } from "luxon";
 import { v4 as uuidV4 } from "uuid";
 import Employee from "App/Models/Employee";
 import NewEmployeeValidator from "App/Validators/NewEmployeeValidator";
 import UpdateEmployeeValidator from "App/Validators/UpdateEmployeeValidator";
+import UploadImageEmployeeValidator from "App/Validators/UploadImageEmployeeValidator";
 
 export default class EmployeesController {
   public async index({ request, response }: HttpContextContract) {
@@ -66,6 +69,40 @@ export default class EmployeesController {
     } catch (error) {
       console.log(error.message);
       response.send({ message: error.message });
+    }
+  }
+
+  public async updloadImage({
+    request,
+    response,
+    params,
+  }: HttpContextContract) {
+    try {
+      const { id } = params;
+      const payload = await request.validate(UploadImageEmployeeValidator);
+      const imageName =
+        DateTime.now().toUnixInteger() +
+        "_employee." +
+        payload.imageProfile.extname;
+
+      if (payload.imageProfile) {
+        await payload.imageProfile.moveToDisk("employees", {
+          name: imageName,
+        });
+      }
+
+      const url =
+        "http://127.0.0.1:3333" + (await Drive.getUrl("employees/" + imageName));
+      const data = await Employee.findByOrFail("id", id);
+
+      if (data.imageId) {
+        await Drive.delete("employees/" + data.imageId);
+      }
+      await data.merge({ imageId: imageName }).save();
+      response.ok({ message: "Image berhasil di upload", data, url });
+    } catch (error) {
+      console.log(error);
+      response.send({ message: error });
     }
   }
 

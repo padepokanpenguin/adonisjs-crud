@@ -48,6 +48,9 @@ export default class Patient extends BaseModel {
   public address: string;
 
   @column()
+  public imageId: string;
+
+  @column()
   public phone_number: string;
 
   @column()

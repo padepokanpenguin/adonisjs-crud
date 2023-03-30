@@ -27,6 +27,9 @@ export default class Doctor extends BaseModel {
   @column()
   public fee: number;
 
+  @column()
+  public imageId: string;
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
 

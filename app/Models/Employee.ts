@@ -49,6 +49,9 @@ export default class Employee extends BaseModel {
   @column()
   public address: string;
 
+  @column()
+  public imageId: string;
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
 

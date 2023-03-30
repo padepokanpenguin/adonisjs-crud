@@ -1,8 +1,11 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import Drive from "@ioc:Adonis/Core/Drive";
+import { DateTime } from "luxon";
 import Pharmacist from "App/Models/Pharmacist";
 import CreatePharmacistValidator from "App/Validators/CreatePharmacistValidator";
 import UpdatePharmacistValidator from "App/Validators/UpdatePharmacistValidator";
 import { v4 as uuidV4 } from "uuid";
+import UploadImagePharmacistValidator from "App/Validators/UploadImagePharmacistValidator";
 
 export default class PharmacistsController {
   public async index({ response }: HttpContextContract) {
@@ -61,6 +64,41 @@ export default class PharmacistsController {
       response.send({ message: error.message });
     }
   }
+
+  public async updloadImage({
+    request,
+    response,
+    params,
+  }: HttpContextContract) {
+    try {
+      const { id } = params;
+      const payload = await request.validate(UploadImagePharmacistValidator);
+      const imageName =
+        DateTime.now().toUnixInteger() +
+        "_pharmacist." +
+        payload.imageProfile.extname;
+
+      if (payload.imageProfile) {
+        await payload.imageProfile.moveToDisk("pharmacists", {
+          name: imageName,
+        });
+      }
+
+      const url =
+        "http://127.0.0.1:3333" + (await Drive.getUrl("pharmacists/" + imageName));
+      const data = await Pharmacist.findByOrFail("id", id);
+
+      if (data.imageId) {
+        await Drive.delete("pharmacists/" + data.imageId);
+      }
+      await data.merge({ imageId: imageName }).save();
+      response.ok({ message: "Image berhasil di upload", data, url });
+    } catch (error) {
+      console.log(error);
+      response.send({ message: error });
+    }
+  }
+
 
   public async destroy({ response, params }: HttpContextContract) {
     try {
