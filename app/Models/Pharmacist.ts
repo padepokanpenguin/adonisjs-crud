@@ -16,7 +16,7 @@ export default class Pharmacist extends BaseModel {
   public employee: BelongsTo<typeof Employee>;
 
   @column()
-  public license_number: string;
+  public licenseNumber: string;
 
   @column()
   public imageId: string;

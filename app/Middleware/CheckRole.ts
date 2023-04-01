@@ -10,7 +10,7 @@ export default class CheckRole {
     const employee = await Employee.query()
       .where("id", "=", auth.user!.employee_id)
       .firstOrFail();
-    console.log(employee.role);
+
     if (roles!.indexOf(employee.role) < 0) {
       return response.unauthorized("User tidak memiliki access");
     }

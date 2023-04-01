@@ -1,9 +1,9 @@
 import Route from "@ioc:Adonis/Core/Route";
 import { roles } from "App/Utils/helper";
 
-Route.get("/", async () => {
-  return { hello: "world" };
-});
+// Route.get("/", async () => {
+//   return { hello: "world" };
+// });
 
 Route.post("/register", "AuthController.register");
 Route.post("/login", "AuthController.login");
@@ -69,4 +69,16 @@ Route.group(() => {
   )
     .apiOnly()
     .middleware(roles);
+
+  // Route.resource("/email", "MailController").apiOnly();
+  Route.post("/send-email", "MailController.send");
 }).middleware("auth");
+
+Route.get("/", async ({ view }) => {
+  const v = await view.render("dashboard", {
+    firstName: "John",
+    lastName: "Doe",
+  });
+
+  return v;
+});

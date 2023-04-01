@@ -51,16 +51,16 @@ export default class Patient extends BaseModel {
   public imageId: string;
 
   @column()
-  public phone_number: string;
+  public phoneNumber: string;
 
   @column()
-  public birth_day: DateTime;
+  public birthDay: Date;
 
   @column()
-  public register_date: DateTime;
+  public registerDate: DateTime;
 
   @column()
-  public is_verified: boolean;
+  public isVerified: boolean;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;

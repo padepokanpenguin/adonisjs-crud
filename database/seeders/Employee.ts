@@ -1,12 +1,13 @@
-import Database from "@ioc:Adonis/Lucid/Database";
 import BaseSeeder from "@ioc:Adonis/Lucid/Seeder";
+import Employee from "App/Models/Employee";
+import { DateTime } from "luxon";
 
 export default class extends BaseSeeder {
   public async run() {
     // Write your database queries inside the run method
     console.log("===> START Seeding Employee");
 
-    await Database.table("employees").multiInsert([
+    await Employee.createMany([
       {
         id: "65ddaf70-c9b3-46e4-95e7-db5cd52c46ac",
         name: "Lutfi 2",
@@ -14,8 +15,8 @@ export default class extends BaseSeeder {
         password: "sangatrahasia1",
         nik: "13245678900023",
         role: "admin",
-        join_date: "2020-02-21 09:00:15",
-        phone_number: "0812345618",
+        joinDate: DateTime.now(),
+        phoneNumber: "0812345618",
         address: "Jl. Patimura Timur No 2 Bekasi",
         email: "lutfi.it@robot-mail.com",
         specialization: "Tech",
@@ -28,8 +29,8 @@ export default class extends BaseSeeder {
         password: "sangatrahasia2",
         nik: "17173343",
         role: "doctor",
-        join_date: "2020-02-21 09:00:15",
-        phone_number: "0812345278",
+        joinDate: DateTime.now(),
+        phoneNumber: "0812345278",
         address: "Jl. Patimura Timur No 2 Bekasi",
         email: "johndoe@robot-mail.com",
         specialization: "Menyuntik sambil pejamkan mata",
@@ -42,8 +43,8 @@ export default class extends BaseSeeder {
         password: "sangatrahasia3",
         nik: "17173348",
         role: "pharmacy",
-        join_date: "2020-02-21 09:00:15",
-        phone_number: "0812345678",
+        joinDate: DateTime.now(),
+        phoneNumber: "0812345678",
         address: "Jl. Patimura Timur No 2 Bekasi",
         email: "johndonk@robot-mail.com",
         specialization: "Meracik Obat",
@@ -56,8 +57,8 @@ export default class extends BaseSeeder {
         password: "sangatrahasia4",
         nik: "17173341",
         role: "doctor",
-        join_date: "2020-02-21 09:00:15",
-        phone_number: "0812345608",
+        joinDate: DateTime.now(),
+        phoneNumber: "0812345608",
         address: "Jl. Patimura Timur No 2 Bekasi",
         email: "sitielik@robot-mail.com",
         specialization: "merawat gigi kamu kayak gigi sendiri",

@@ -22,7 +22,7 @@ export default class Doctor extends BaseModel {
   public employee: BelongsTo<typeof Employee>;
 
   @column()
-  public license_number: string;
+  public licenseNumber: string;
 
   @column()
   public fee: number;

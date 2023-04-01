@@ -43,7 +43,7 @@ export default class MedicalRecord extends BaseModel {
   public weight: number;
 
   @column()
-  public blood_pressure: string;
+  public bloodPressure: string;
 
   @column()
   public note: string;

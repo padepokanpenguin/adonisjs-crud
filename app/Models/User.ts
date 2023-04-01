@@ -15,8 +15,8 @@ export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: string;
 
-@column()
-public employee_id: string;
+  @column()
+  public employee_id: string;
 
   @belongsTo(() => Employee)
   public employee: BelongsTo<typeof Employee>;
@@ -44,6 +44,8 @@ public employee_id: string;
   }
   @beforeCreate()
   public static async generateId(user: User) {
-    user.id = uuidV4();
+    if (user.id) {
+      user.id = uuidV4();
+    }
   }
 }

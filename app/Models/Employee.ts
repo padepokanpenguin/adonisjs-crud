@@ -35,7 +35,7 @@ export default class Employee extends BaseModel {
   public role: string;
 
   @column.date({ autoCreate: true })
-  public joinDate: DateTime;
+  public joinDate: DateTime
 
   @column()
   public gender: string;
