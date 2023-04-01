@@ -1,12 +1,14 @@
 import { DateTime } from "luxon";
 import {
   BaseModel,
+  beforeCreate,
   column,
   HasMany,
   hasMany,
   HasOne,
   hasOne,
 } from "@ioc:Adonis/Lucid/Orm";
+import { v4 as uuidV4 } from "uuid";
 import Doctor from "./Doctor";
 import Pharmacist from "./Pharmacist";
 import Patient from "./Patient";
@@ -35,7 +37,7 @@ export default class Employee extends BaseModel {
   public role: string;
 
   @column.date({ autoCreate: true })
-  public joinDate: DateTime
+  public joinDate: DateTime;
 
   @column()
   public gender: string;
@@ -71,4 +73,11 @@ export default class Employee extends BaseModel {
     foreignKey: "registBy",
   })
   public admin: HasMany<typeof Patient>;
+
+  @beforeCreate()
+  public static async generateId(employee: Employee) {
+    if (employee.id) {
+      employee.id = uuidV4();
+    }
+  }
 }

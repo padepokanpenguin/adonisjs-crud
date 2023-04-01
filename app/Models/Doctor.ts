@@ -1,12 +1,14 @@
 import { DateTime } from "luxon";
 import {
   BaseModel,
+  beforeCreate,
   BelongsTo,
   belongsTo,
   column,
   HasMany,
   hasMany,
 } from "@ioc:Adonis/Lucid/Orm";
+import { v4 as uuidV4 } from "uuid";
 import Employee from "./Employee";
 import Clinic from "./Clinic";
 import MedicalRecord from "./MedicalRecord";
@@ -41,4 +43,11 @@ export default class Doctor extends BaseModel {
 
   @hasMany(() => MedicalRecord)
   public medicalRecord: HasMany<typeof MedicalRecord>;
+
+  @beforeCreate()
+  public static async generateId(doctor: Doctor) {
+    if (doctor.id) {
+      doctor.id = uuidV4();
+    }
+  }
 }

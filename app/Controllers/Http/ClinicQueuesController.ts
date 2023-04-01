@@ -1,4 +1,5 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { ResponseError } from "App/Exceptions/ResponseError";
 import Clinic from "App/Models/Clinic";
 import ClinicQueue from "App/Models/ClinicQueue";
 import CreateClinicQueueValidator from "App/Validators/CreateClinicQueueValidator";
@@ -30,7 +31,7 @@ export default class ClinicQueuesController {
         data,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "ClinicQueue Co ln:34");
     }
   }
 
@@ -55,7 +56,7 @@ export default class ClinicQueuesController {
         })
         .firstOrFail();
 
-      if (clinic.$extras["total_queues"] >= clinic.daily_quota) {
+      if (clinic.$extras["total_queues"] >= clinic.dailyQuota) {
         response.badRequest({ message: "Kuota Penuh" });
       }
       const data = await ClinicQueue.create(payload);
@@ -65,7 +66,7 @@ export default class ClinicQueuesController {
         data,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "ClinicQueue Co ln:69");
     }
   }
 
@@ -82,16 +83,20 @@ export default class ClinicQueuesController {
             "username",
             "email",
             "status",
-            "gender"
+            "gender",
+            "address",
+            "phone_number",
+            "birth_date"
           )
         )
-        .where("id", "=", id);
+        .where("id", "=", id)
+        .firstOrFail();
       response.created({
         message: "Berhasil mendapatkan detail data antrian clinic",
         data,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "ClinicQueue Co ln:95");
     }
   }
 
@@ -105,7 +110,7 @@ export default class ClinicQueuesController {
 
       response.created({ message: "Berhasil memperbarui data", data });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "ClinicQueue Co ln:109");
     }
   }
 
@@ -117,7 +122,7 @@ export default class ClinicQueuesController {
 
       response.created({ message: "Berhasil Menghapus data" });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "ClinicQueue Co ln:121");
     }
   }
 }

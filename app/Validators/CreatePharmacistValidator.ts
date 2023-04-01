@@ -5,11 +5,11 @@ export default class CreatePharmacistValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    employee_id: schema.string({ trim: true }, [
+    employeeId: schema.string({ trim: true }, [
       rules.uuid({ version: 4 }),
       rules.exists({ table: "employees", column: "id" }),
     ]),
-    license_number: schema.string({ trim: true }),
+    licenseNumber: schema.string({ trim: true }),
   });
 
   /**

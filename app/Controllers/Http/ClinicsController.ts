@@ -1,5 +1,5 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { v4 as uuidV4 } from "uuid";
+import { ResponseError } from "App/Exceptions/ResponseError";
 import Clinic from "App/Models/Clinic";
 import CreateClinicValidator from "App/Validators/CreateClinicValidator";
 import UpdateClinicValidator from "App/Validators/UpdateClinicValidator";
@@ -17,20 +17,21 @@ export default class ClinicsController {
         .withAggregate("clinicQueue", (cq) => {
           cq.count("*").as("total_queues");
           cq.whereRaw(
-            `created_at::date = '${DateTime.now().toFormat("yyyy-MM-dd")}'::date`
+            `created_at::date = '${DateTime.now().toFormat(
+              "yyyy-MM-dd"
+            )}'::date`
           );
         });
 
       response.created({ message: "Berhasil mengambil data klinik ", data });
-    } catch (e) {
-      response.send({ message: e.message });
+    } catch (error) {
+      ResponseError.handler(error, response, "Clinics Co ln:28");
     }
   }
 
   public async store({ request, response }: HttpContextContract) {
     try {
       const payload = await request.validate(CreateClinicValidator);
-      payload["id"] = uuidV4();
 
       const data = await Clinic.create(payload);
 
@@ -44,11 +45,19 @@ export default class ClinicsController {
     try {
       const { id } = params;
 
-      const data = await Clinic.findByOrFail("id", id);
+      const data = await Clinic.query()
+        .preload("doctor", (q) => {
+          q.select("*");
+          q.preload("employee", (q) =>
+            q.select("name", "username", "role", "join_date", "email")
+          );
+        })
+        .where("id", "=", id)
+        .firstOrFail();
 
       response.created({ message: "Berhasil mengambil data klinik ", data });
-    } catch (e) {
-      response.send({ message: e.message });
+    } catch (error) {
+      ResponseError.handler(error, response, "Clinics Co ln:52");
     }
   }
 
@@ -62,7 +71,7 @@ export default class ClinicsController {
 
       response.created({ messsage: "Data berhasil diupdate", data });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Clinics Co ln:66");
     }
   }
 
@@ -77,7 +86,7 @@ export default class ClinicsController {
         message: "Data klinik berhasil dihapus",
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Clinics Co ln:81");
     }
   }
 }

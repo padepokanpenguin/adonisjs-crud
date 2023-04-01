@@ -1,5 +1,6 @@
 import { DateTime } from "luxon";
-import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import { v4 as uuidV4 } from "uuid";
+import { BaseModel, beforeCreate, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
 import Employee from "./Employee";
 
 export default class Pharmacist extends BaseModel {
@@ -23,4 +24,10 @@ export default class Pharmacist extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
-}
+  
+  @beforeCreate()
+  public static async generateId(pharmacist: Pharmacist) {
+    if (pharmacist.id) {
+      pharmacist.id = uuidV4()
+    } 
+  }}

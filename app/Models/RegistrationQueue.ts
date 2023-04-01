@@ -1,12 +1,14 @@
 import { DateTime } from "luxon";
 import {
   BaseModel,
+  beforeCreate,
   BelongsTo,
   belongsTo,
   column,
   HasOne,
   hasOne,
 } from "@ioc:Adonis/Lucid/Orm";
+import { v4 as uuidV4 } from "uuid";
 import Clinic from "./Clinic";
 import ClinicQueue from "./ClinicQueue";
 
@@ -34,4 +36,11 @@ export default class RegistrationQueue extends BaseModel {
 
   @hasOne(() => ClinicQueue)
   public clinicQueue: HasOne<typeof ClinicQueue>;
+
+  @beforeCreate()
+  public static async generateId(registrationQueue: RegistrationQueue) {
+    if (registrationQueue.id) {
+      registrationQueue.id = uuidV4();
+    }
+  }
 }

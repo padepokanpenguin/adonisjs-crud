@@ -1,8 +1,8 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { ResponseError } from "App/Exceptions/ResponseError";
 import TransactionDetail from "App/Models/TransactionDetail";
 import CreateTransactionDetailValidator from "App/Validators/CreateTransactionDetailValidator";
 import UpdateTransactionDetailValidator from "App/Validators/UpdateTransactionDetailValidator";
-import { v4 as uuidV4 } from "uuid";
 
 export default class TransactionDetailsController {
   public async index({ response, params }: HttpContextContract) {
@@ -17,7 +17,7 @@ export default class TransactionDetailsController {
         data,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "TransactionDetails Co ln:20");
     }
   }
 
@@ -25,7 +25,7 @@ export default class TransactionDetailsController {
     try {
       const { transaction_id } = params;
       const payload = await request.validate(CreateTransactionDetailValidator);
-      payload["id"] = uuidV4();
+
       payload["transaction_id"] = transaction_id;
 
       const data = await TransactionDetail.create(payload);
@@ -34,7 +34,7 @@ export default class TransactionDetailsController {
         data,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "TransactionDetails Co ln:37");
     }
   }
 
@@ -44,7 +44,7 @@ export default class TransactionDetailsController {
 
       const data = await TransactionDetail.query()
         .preload("transaction")
-        .where((t) => t.where("id", id))
+        .where("id", "=", id)
         .firstOrFail();
 
       response.created({
@@ -52,7 +52,7 @@ export default class TransactionDetailsController {
         data,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "TransactionDetails Co ln:55");
     }
   }
 
@@ -65,7 +65,7 @@ export default class TransactionDetailsController {
 
       response.created({ message: "Berhasil memperbarui data", data });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "TransactionDetails Co ln:68");
     }
   }
 
@@ -79,7 +79,7 @@ export default class TransactionDetailsController {
         message: " Berhasil menghapus data transactional detail",
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "TransactionDetails Co ln:82");
     }
   }
 }

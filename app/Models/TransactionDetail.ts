@@ -1,5 +1,12 @@
 import { DateTime } from "luxon";
-import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import {
+  BaseModel,
+  beforeCreate,
+  BelongsTo,
+  belongsTo,
+  column,
+} from "@ioc:Adonis/Lucid/Orm";
+import { v4 as uuidV4 } from "uuid";
 import Transaction from "./Transaction";
 
 export default class TransactionDetail extends BaseModel {
@@ -23,4 +30,11 @@ export default class TransactionDetail extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
+
+  @beforeCreate()
+  public static async generateId(transactionDetail: TransactionDetail) {
+    if (transactionDetail.id) {
+      transactionDetail.id = uuidV4();
+    }
+  }
 }

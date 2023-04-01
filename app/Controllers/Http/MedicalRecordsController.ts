@@ -1,5 +1,5 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { v4 as uuidV4 } from "uuid";
+import { ResponseError } from "App/Exceptions/ResponseError";
 import MedicalRecord from "App/Models/MedicalRecord";
 import CreateMedicalRecordValidator from "App/Validators/CreateMedicalRecordValidator";
 import UpdateMedicalRecordValidator from "App/Validators/UpdateMedicalRecordValidator";
@@ -18,7 +18,7 @@ export default class MedicalRecordsController {
         data,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "MedicalRecords Co ln:21");
     }
   }
 
@@ -26,13 +26,13 @@ export default class MedicalRecordsController {
     try {
       const { patient_id } = params;
       const payload = await request.validate(CreateMedicalRecordValidator);
-      payload["id"] = uuidV4();
+
       payload["patient_id"] = patient_id;
       const data = await MedicalRecord.create(payload);
 
       response.created({ message: "Berhasil membuat data", data });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "MedicalRecords Co ln:35");
     }
   }
 
@@ -41,15 +41,28 @@ export default class MedicalRecordsController {
       const { id } = params;
 
       const data = await MedicalRecord.query()
-        .preload("patient")
-        .where("id", "=", id);
+        .preload("patient", (q) =>
+          q.select(
+            "id",
+            "name",
+            "username",
+            "role",
+            "join_date",
+            "email",
+            "specialization",
+            "phone_number",
+            "address"
+          )
+        )
+        .where("id", "=", id)
+        .firstOrFail();
 
       response.created({
         message: "Berhasil mengambil data detail medical record",
         data,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "MedicalRecords Co ln:52");
     }
   }
 
@@ -63,7 +76,7 @@ export default class MedicalRecordsController {
 
       response.created({ message: "Berhasil memperbarui data", data });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "MedicalRecords Co ln:66");
     }
   }
 
@@ -75,7 +88,7 @@ export default class MedicalRecordsController {
 
       response.created({ message: "Berhasil menghapus data" });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "MedicalRecords Co ln:78");
     }
   }
 }

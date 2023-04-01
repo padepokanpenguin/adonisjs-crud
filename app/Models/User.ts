@@ -42,6 +42,7 @@ export default class User extends BaseModel {
       user.password = await Hash.make(user.password);
     }
   }
+  
   @beforeCreate()
   public static async generateId(user: User) {
     if (user.id) {

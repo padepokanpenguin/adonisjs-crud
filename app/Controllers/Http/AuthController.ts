@@ -1,4 +1,5 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { ResponseError } from "App/Exceptions/ResponseError";
 import User from "App/Models/User";
 import LoginValidator from "App/Validators/LoginValidator";
 import RegisterValidator from "App/Validators/RegisterValidator";
@@ -11,7 +12,7 @@ export default class AuthController {
 
       response.created({ message: "Berhasil Register", data });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Auth Co ln:15");
     }
   }
 
@@ -23,7 +24,7 @@ export default class AuthController {
 
       response.created({ message: "Login berhasil", data: token });
     } catch (error) {
-      return response.unauthorized("Invalid credentials");
+      ResponseError.handler(error, response, "Auth Co ln:27");
     }
   }
 }

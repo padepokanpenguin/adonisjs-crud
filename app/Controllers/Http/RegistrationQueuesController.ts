@@ -1,5 +1,5 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { v4 as uuidV4 } from "uuid";
+import { ResponseError } from "App/Exceptions/ResponseError";
 import RegistrationQueue from "App/Models/RegistrationQueue";
 import CreateRegistrationQueueValidator from "App/Validators/CreateRegistrationQueueValidator";
 import UpdateRegistrationQueueValidator from "App/Validators/UpdateRegistrationQueueValidator";
@@ -14,14 +14,13 @@ export default class RegistrationQueuesController {
         data,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "RegistrationQueues Co ln:17");
     }
   }
 
   public async store({ request, response }: HttpContextContract) {
     try {
       const payload = await request.validate(CreateRegistrationQueueValidator);
-      payload["id"] = uuidV4();
 
       const data = await RegistrationQueue.create(payload);
 
@@ -30,7 +29,7 @@ export default class RegistrationQueuesController {
         data,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "RegistrationQueues Co ln:32");
     }
   }
 
@@ -38,14 +37,17 @@ export default class RegistrationQueuesController {
     try {
       const { id } = params;
 
-      const data = await RegistrationQueue.findByOrFail("id", id);
+      const data = await RegistrationQueue.query()
+        .select("*")
+        .where("id", "=", id)
+        .firstOrFail();
 
       response.created({
         message: "Berhasil mendapatkan data detail antrian",
         data,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "RegistrationQueues Co ln:47");
     }
   }
 
@@ -59,7 +61,7 @@ export default class RegistrationQueuesController {
 
       response.created({ message: "Berhasil mengupdate data antrian", data });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "RegistrationQueues Co ln:61");
     }
   }
 
@@ -72,7 +74,7 @@ export default class RegistrationQueuesController {
 
       response.created({ message: "Berhasil menghapus data antrian" });
     } catch (error) {
-      response.send({ message: "Berhasi;l menghapus data antrian" });
+      ResponseError.handler(error, response, "RegistrationQueues Co ln:74");
     }
   }
 }

@@ -1,5 +1,6 @@
 import Mail from "@ioc:Adonis/Addons/Mail";
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { ResponseError } from "App/Exceptions/ResponseError";
 
 export default class MailController {
   public async send({ response }: HttpContextContract) {
@@ -14,9 +15,8 @@ export default class MailController {
       });
       response.ok({ message: "Email terkirim" });
     } catch (error) {
-      const message = `Mail Controller ln:17 ${error.message}`;
-      console.log(message, error);
-      response.send({ message, error });
+      
+      ResponseError.handler(error, response, "Mail Co ln:19");
     }
   }
   // public async index({}: HttpContextContract) {}

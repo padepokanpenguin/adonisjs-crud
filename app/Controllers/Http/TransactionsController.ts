@@ -1,8 +1,8 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { ResponseError } from "App/Exceptions/ResponseError";
 import Transaction from "App/Models/Transaction";
 import CreateTransactionValidator from "App/Validators/CreateTransactionValidator";
 import UpdateTransactionValidator from "App/Validators/UpdateTransactionValidator";
-import { v4 as uuidV4 } from "uuid";
 
 export default class TransactionsController {
   public async index({ response }: HttpContextContract) {
@@ -14,19 +14,19 @@ export default class TransactionsController {
         data,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Transactions Co ln:17");
     }
   }
 
   public async store({ request, response }: HttpContextContract) {
     try {
       const payload = await request.validate(CreateTransactionValidator);
-      payload["id"] = uuidV4();
+
       const data = await Transaction.create(payload);
 
       response.created({ message: "Berhasil membuat data", data });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Transactions Co ln:29");
     }
   }
 
@@ -36,14 +36,18 @@ export default class TransactionsController {
 
       const data = await Transaction.query()
         .preload("transactionDetail")
-        .where("id", "=", id);
+        .preload("medicalRecord", (mr) =>
+          mr.preload("patient", (p) => p.select("name"))
+        )
+        .where("id", "=", id)
+        .firstOrFail();
 
       response.created({
         message: "Berhasil mengambil data Transaction",
         data,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Transactions Co ln:46");
     }
   }
 
@@ -60,7 +64,7 @@ export default class TransactionsController {
         data,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Transactions Co ln:63");
     }
   }
 
@@ -72,7 +76,7 @@ export default class TransactionsController {
 
       response.created({ message: "Berhasil menghapus data" });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Transactions Co ln:75");
     }
   }
 }

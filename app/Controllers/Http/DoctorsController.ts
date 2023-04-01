@@ -5,7 +5,7 @@ import CreateDoctorValidator from "App/Validators/CreateDoctorValidator";
 import UpdateDoctorValidator from "App/Validators/UpdateDoctorValidator";
 import UploadImageDoctorValidator from "App/Validators/UploadImageDoctorValidator";
 import { DateTime } from "luxon";
-import { v4 as uuidV4 } from "uuid";
+import { ResponseError } from "App/Exceptions/ResponseError";
 
 export default class DoctorsController {
   public async index({ response }: HttpContextContract) {
@@ -20,20 +20,19 @@ export default class DoctorsController {
 
       response.send({ message: "Berhasil mendapatkan data doctors", data });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Doctors Co ln:23");
     }
   }
 
   public async store({ request, response }: HttpContextContract) {
     try {
       const payload = await request.validate(CreateDoctorValidator);
-      payload["id"] = uuidV4();
 
       const data = await Doctor.create(payload);
 
       response.created({ message: "Berhasil membuat data doctor", data });
     } catch (error) {
-      response.send({ error: error.message });
+      ResponseError.handler(error, response, "Doctors Co ln:35");
     }
   }
 
@@ -43,14 +42,24 @@ export default class DoctorsController {
 
       const data = await Doctor.findByOrFail("id", id);
       await data.load("employee", (q) =>
-        q.select("id", "name", "username", "role", "join_date", "email")
+        q.select(
+          "id",
+          "name",
+          "username",
+          "role",
+          "join_date",
+          "email",
+          "specialization",
+          "phone_number",
+          "address"
+        )
       );
       response.created({
         message: "Berhasil mengambil data detail doctor",
         data: data,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Doctors Co ln:52");
     }
   }
 
@@ -65,7 +74,7 @@ export default class DoctorsController {
 
       response.created({ message: "Doctor berhasil diupdate", data });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Doctors Co ln:67");
     }
   }
 
@@ -98,8 +107,7 @@ export default class DoctorsController {
       await data.merge({ imageId: imageName }).save();
       response.ok({ message: "Image berhasil di upload", data, url });
     } catch (error) {
-      console.log(error);
-      response.send({ message: error });
+      ResponseError.handler(error, response, "Doctors Co ln:100");
     }
   }
 
@@ -113,7 +121,7 @@ export default class DoctorsController {
         message: "Data berhasil dihapus",
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Doctors Co ln:114");
     }
   }
 }

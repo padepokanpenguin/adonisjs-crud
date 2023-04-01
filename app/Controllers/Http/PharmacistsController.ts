@@ -4,8 +4,8 @@ import { DateTime } from "luxon";
 import Pharmacist from "App/Models/Pharmacist";
 import CreatePharmacistValidator from "App/Validators/CreatePharmacistValidator";
 import UpdatePharmacistValidator from "App/Validators/UpdatePharmacistValidator";
-import { v4 as uuidV4 } from "uuid";
 import UploadImagePharmacistValidator from "App/Validators/UploadImagePharmacistValidator";
+import { ResponseError } from "App/Exceptions/ResponseError";
 
 export default class PharmacistsController {
   public async index({ response }: HttpContextContract) {
@@ -16,19 +16,19 @@ export default class PharmacistsController {
 
       response.created({ message: "Berhasil mengambil data Apoteker", data });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Pharmacists Co ln:19");
     }
   }
 
   public async store({ request, response }: HttpContextContract) {
     try {
       const payload = await request.validate(CreatePharmacistValidator);
-      payload["id"] = uuidV4();
+
       const data = await Pharmacist.create(payload);
 
       response.created({ message: "Berhasil membuat data apoteker", data });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Pharmacists Co ln:31");
     }
   }
 
@@ -38,16 +38,27 @@ export default class PharmacistsController {
 
       const data = await Pharmacist.query()
         .preload("employee", (q) =>
-          q.select("id", "name", "username", "role", "join_date", "email")
+          q.select(
+            "id",
+            "name",
+            "username",
+            "role",
+            "join_date",
+            "email",
+            "specialization",
+            "phone_number",
+            "address"
+          )
         )
-        .where("id", "=", id);
+        .where("id", "=", id)
+        .firstOrFail();
 
       response.created({
         message: "Berhasil mengambil data detail apoteker",
         data,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Pharmacists Co ln:50");
     }
   }
 
@@ -61,7 +72,7 @@ export default class PharmacistsController {
 
       response.created({ message: "Berhasil memperbarui data apoteker", data });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Pharmacists Co ln:64");
     }
   }
 
@@ -85,7 +96,8 @@ export default class PharmacistsController {
       }
 
       const url =
-        "http://127.0.0.1:3333" + (await Drive.getUrl("pharmacists/" + imageName));
+        "http://127.0.0.1:3333" +
+        (await Drive.getUrl("pharmacists/" + imageName));
       const data = await Pharmacist.findByOrFail("id", id);
 
       if (data.imageId) {
@@ -94,11 +106,9 @@ export default class PharmacistsController {
       await data.merge({ imageId: imageName }).save();
       response.ok({ message: "Image berhasil di upload", data, url });
     } catch (error) {
-      console.log(error);
-      response.send({ message: error });
+      ResponseError.handler(error, response, "Pharmacists Co ln:98");
     }
   }
-
 
   public async destroy({ response, params }: HttpContextContract) {
     try {
@@ -106,9 +116,9 @@ export default class PharmacistsController {
       const data = await Pharmacist.findByOrFail("id", id);
       await data.delete();
 
-      response.created({message: "Berhasil menghapus data apoteker"})
+      response.created({ message: "Berhasil menghapus data apoteker" });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Pharmacists Co ln:110");
     }
   }
 }

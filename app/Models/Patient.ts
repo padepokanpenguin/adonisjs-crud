@@ -1,12 +1,14 @@
 import { DateTime } from "luxon";
 import {
   BaseModel,
+  beforeCreate,
   BelongsTo,
   belongsTo,
   column,
   HasMany,
   hasMany,
 } from "@ioc:Adonis/Lucid/Orm";
+import { v4 as uuidV4 } from "uuid";
 import Employee from "./Employee";
 import ClinicQueue from "./ClinicQueue";
 import MedicalRecord from "./MedicalRecord";
@@ -35,7 +37,7 @@ export default class Patient extends BaseModel {
   @column()
   public username: string;
 
-  @column()
+  @column({ serializeAs: null })
   public password: string;
 
   @column()
@@ -54,7 +56,7 @@ export default class Patient extends BaseModel {
   public phoneNumber: string;
 
   @column()
-  public birthDay: Date;
+  public birthDate: Date;
 
   @column()
   public registerDate: DateTime;
@@ -73,4 +75,11 @@ export default class Patient extends BaseModel {
 
   @hasMany(() => MedicalRecord)
   public medicalRecord: HasMany<typeof MedicalRecord>;
+
+  @beforeCreate()
+  public static async generateId(patient: Patient) {
+    if (patient.id) {
+      patient.id = uuidV4();
+    }
+  }
 }

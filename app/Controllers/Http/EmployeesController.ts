@@ -1,32 +1,37 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Drive from "@ioc:Adonis/Core/Drive";
 import { DateTime } from "luxon";
-import { v4 as uuidV4 } from "uuid";
 import Employee from "App/Models/Employee";
 import NewEmployeeValidator from "App/Validators/NewEmployeeValidator";
 import UpdateEmployeeValidator from "App/Validators/UpdateEmployeeValidator";
 import UploadImageEmployeeValidator from "App/Validators/UploadImageEmployeeValidator";
+import { ResponseError } from "App/Exceptions/ResponseError";
 
 export default class EmployeesController {
   public async index({ request, response }: HttpContextContract) {
-    const { keyword = "" } = request.qs();
+    try {
+      const { keyword = "" } = request.qs();
 
-    const data = await Employee.query()
-      .select("id", "name", "username", "role", "join_date", "email")
-      .preload("doctor", (query) => query.select("id", "license_number", "fee"))
-      .preload("pharmacist", (query) => query.select("license_number"))
-      .whereILike("name", `%${keyword}%`);
+      const data = await Employee.query()
+        .select("id", "name", "username", "role", "join_date", "email")
+        .preload("doctor", (query) =>
+          query.select("id", "license_number", "fee")
+        )
+        .preload("pharmacist", (query) => query.select("license_number"))
+        .whereILike("name", `%${keyword}%`);
 
-    response.ok({
-      message: "Berhasil meraih employee route",
-      data,
-    });
+      response.ok({
+        message: "Berhasil meraih employee route",
+        data,
+      });
+    } catch (error) {
+      ResponseError.handler(error, response, "Employees Co ln:27");
+    }
   }
 
   public async store({ request, response }: HttpContextContract) {
     try {
       const payload = await request.validate(NewEmployeeValidator);
-      payload["id"] = uuidV4();
 
       const newEmplo = await Employee.create(payload);
 
@@ -35,7 +40,7 @@ export default class EmployeesController {
         data: newEmplo,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Employees Co ln:43");
     }
   }
 
@@ -43,13 +48,27 @@ export default class EmployeesController {
     try {
       const { id } = params;
 
-      const data = await Employee.findByOrFail("id", id);
+      const data = await Employee.query()
+        .select(
+          "id",
+          "name",
+          "username",
+          "role",
+          "join_date",
+          "email",
+          "specialization",
+          "phone_number",
+          "address"
+        )
+        .where("id", "=", id)
+        .firstOrFail();
+
       response.created({
         message: "Berhasil mengambil data details",
         data,
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Employees Co ln:57");
     }
   }
 
@@ -67,8 +86,7 @@ export default class EmployeesController {
         data,
       });
     } catch (error) {
-      console.log(error.message);
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Employees Co ln:75");
     }
   }
 
@@ -92,7 +110,8 @@ export default class EmployeesController {
       }
 
       const url =
-        "http://127.0.0.1:3333" + (await Drive.getUrl("employees/" + imageName));
+        "http://127.0.0.1:3333" +
+        (await Drive.getUrl("employees/" + imageName));
       const data = await Employee.findByOrFail("id", id);
 
       if (data.imageId) {
@@ -101,8 +120,7 @@ export default class EmployeesController {
       await data.merge({ imageId: imageName }).save();
       response.ok({ message: "Image berhasil di upload", data, url });
     } catch (error) {
-      console.log(error);
-      response.send({ message: error });
+      ResponseError.handler(error, response, "Employees Co ln:109");
     }
   }
 
@@ -117,7 +135,7 @@ export default class EmployeesController {
         message: "Data berhasil dihapus",
       });
     } catch (error) {
-      response.send({ message: error.message });
+      ResponseError.handler(error, response, "Employees Co ln:124");
     }
   }
 }
