@@ -39,7 +39,7 @@ export default class RegistrationQueue extends BaseModel {
 
   @beforeCreate()
   public static async generateId(registrationQueue: RegistrationQueue) {
-    if (registrationQueue.id) {
+    if (!registrationQueue.id) {
       registrationQueue.id = uuidV4();
     }
   }

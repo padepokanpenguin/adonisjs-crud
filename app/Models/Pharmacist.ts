@@ -27,7 +27,7 @@ export default class Pharmacist extends BaseModel {
   
   @beforeCreate()
   public static async generateId(pharmacist: Pharmacist) {
-    if (pharmacist.id) {
+    if (!pharmacist.id) {
       pharmacist.id = uuidV4()
     } 
   }}

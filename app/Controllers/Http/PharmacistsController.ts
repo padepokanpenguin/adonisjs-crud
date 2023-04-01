@@ -4,8 +4,8 @@ import { DateTime } from "luxon";
 import Pharmacist from "App/Models/Pharmacist";
 import CreatePharmacistValidator from "App/Validators/CreatePharmacistValidator";
 import UpdatePharmacistValidator from "App/Validators/UpdatePharmacistValidator";
-import UploadImagePharmacistValidator from "App/Validators/UploadImagePharmacistValidator";
 import { ResponseError } from "App/Exceptions/ResponseError";
+import ImageProfileValidator from "App/Validators/ImageProfileValidator";
 
 export default class PharmacistsController {
   public async index({ response }: HttpContextContract) {
@@ -83,7 +83,7 @@ export default class PharmacistsController {
   }: HttpContextContract) {
     try {
       const { id } = params;
-      const payload = await request.validate(UploadImagePharmacistValidator);
+      const payload = await request.validate(ImageProfileValidator);
       const imageName =
         DateTime.now().toUnixInteger() +
         "_pharmacist." +

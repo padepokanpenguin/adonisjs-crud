@@ -3,9 +3,9 @@ import Drive from "@ioc:Adonis/Core/Drive";
 import Doctor from "App/Models/Doctor";
 import CreateDoctorValidator from "App/Validators/CreateDoctorValidator";
 import UpdateDoctorValidator from "App/Validators/UpdateDoctorValidator";
-import UploadImageDoctorValidator from "App/Validators/UploadImageDoctorValidator";
 import { DateTime } from "luxon";
 import { ResponseError } from "App/Exceptions/ResponseError";
+import ImageProfileValidator from "App/Validators/ImageProfileValidator";
 
 export default class DoctorsController {
   public async index({ response }: HttpContextContract) {
@@ -85,7 +85,7 @@ export default class DoctorsController {
   }: HttpContextContract) {
     try {
       const { id } = params;
-      const payload = await request.validate(UploadImageDoctorValidator);
+      const payload = await request.validate(ImageProfileValidator);
       const imageName =
         DateTime.now().toUnixInteger() +
         "_doctor." +

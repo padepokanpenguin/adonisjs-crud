@@ -8,7 +8,7 @@ export default class MailController {
       await Mail.send((message) => {
         message
           .from("aria@noreply.id")
-          .to("kamu@disana.id")
+          .to("aria.psw@gmail.com")
           .subject("Hoola")
           // .text("Hai Kawan")
           .htmlView("emails/register", { username: "John" });

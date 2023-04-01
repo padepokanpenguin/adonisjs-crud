@@ -5,7 +5,7 @@ export class ResponseError extends Error {
 
   public static handler(error, response, description) {
     response.send({
-      message: description + error.message || error,
+      message: description + " " + error.message || error,
       error,
     });
   }

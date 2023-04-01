@@ -5,6 +5,7 @@ import { DateTime } from "luxon";
 export default class extends BaseSeeder {
   public async run() {
     // Write your database queries inside the run method
+    console.log("===> START Seeding MEDICAL Records");
     await MedicalRecord.createMany([
       {
         id: "0edd1f42-096e-4a11-aa5a-0464278b7b39",
@@ -49,5 +50,6 @@ export default class extends BaseSeeder {
         prescription: "air putih 10 gelas per6jam",
       },
     ]);
+    console.log("===> DONE Seeding Medical Records");
   }
 }

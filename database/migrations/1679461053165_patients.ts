@@ -21,9 +21,9 @@ export default class extends BaseSchema {
       table.enum("gender", ["male", "female"]);
       table.text("address");
       table.string("phone_number", 16);
-      table.date("birth_day");
+      table.date("birth_date");
       table.date("register_date");
-      table.boolean("is_verified");
+      table.boolean("is_verified").defaultTo(false);
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

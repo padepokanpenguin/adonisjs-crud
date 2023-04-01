@@ -21,6 +21,6 @@ export default class extends BaseSeeder {
         dailyQuota: 15,
       },
     ]);
-    console.log("===> DONE Seeding Employee");
+    console.log("===> DONE Seeding Clinic");
   }
 }

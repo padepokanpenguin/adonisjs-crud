@@ -4,8 +4,9 @@ import { DateTime } from "luxon";
 import Employee from "App/Models/Employee";
 import NewEmployeeValidator from "App/Validators/NewEmployeeValidator";
 import UpdateEmployeeValidator from "App/Validators/UpdateEmployeeValidator";
-import UploadImageEmployeeValidator from "App/Validators/UploadImageEmployeeValidator";
+
 import { ResponseError } from "App/Exceptions/ResponseError";
+import ImageProfileValidator from "App/Validators/ImageProfileValidator";
 
 export default class EmployeesController {
   public async index({ request, response }: HttpContextContract) {
@@ -97,7 +98,7 @@ export default class EmployeesController {
   }: HttpContextContract) {
     try {
       const { id } = params;
-      const payload = await request.validate(UploadImageEmployeeValidator);
+      const payload = await request.validate(ImageProfileValidator);
       const imageName =
         DateTime.now().toUnixInteger() +
         "_employee." +

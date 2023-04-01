@@ -4,6 +4,7 @@ import Transaction from "App/Models/Transaction";
 export default class extends BaseSeeder {
   public async run() {
     // Write your database queries inside the run method
+    console.log("===> START Seeding Transaction")
     await Transaction.createMany([
       {
         id: "34304c46-1bf2-4043-9c72-ea347952306f",
@@ -27,5 +28,6 @@ export default class extends BaseSeeder {
         status: "unpaid",
       },
     ]);
+    console.log("===> DONE Seeding Transaction")
   }
 }

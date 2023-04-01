@@ -5,6 +5,7 @@ import Patient from "App/Models/Patient";
 export default class extends BaseSeeder {
   public async run() {
     // Write your database queries inside the run method
+    console.log("===> START Seeding PATIENT");
     await Patient.createMany([
       {
         id: "b4832faf-2046-4522-a176-2161ee39df95",
@@ -55,5 +56,6 @@ export default class extends BaseSeeder {
         isVerified: true,
       },
     ]);
+    console.log("===> DONE Seeding PATIENT");
   }
 }

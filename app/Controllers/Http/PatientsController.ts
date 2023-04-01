@@ -4,8 +4,8 @@ import Patient from "App/Models/Patient";
 import CreatePatientValidator from "App/Validators/CreatePatientValidator";
 import UpdatePatientValidator from "App/Validators/UpdatePatientValidator";
 import { DateTime } from "luxon";
-import UploadImagePatientValidator from "App/Validators/UploadImagePatientValidator";
 import { ResponseError } from "App/Exceptions/ResponseError";
+import ImageProfileValidator from "App/Validators/ImageProfileValidator";
 export default class PatientsController {
   public async index({ response }: HttpContextContract) {
     try {
@@ -84,7 +84,7 @@ export default class PatientsController {
   }: HttpContextContract) {
     try {
       const { id } = params;
-      const payload = await request.validate(UploadImagePatientValidator);
+      const payload = await request.validate(ImageProfileValidator);
       const imageName =
         DateTime.now().toUnixInteger() +
         "_patient." +

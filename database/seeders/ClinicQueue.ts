@@ -4,6 +4,7 @@ import ClinicQueue from "App/Models/ClinicQueue";
 export default class extends BaseSeeder {
   public async run() {
     // Write your database queries inside the run method
+    console.log("===> START Seeding Clinic QUEUE");
     await ClinicQueue.createMany([
       {
         id: "af8c0213-5a0b-43cc-bab4-3694bae44af2",
@@ -27,5 +28,6 @@ export default class extends BaseSeeder {
         status: "done",
       },
     ]);
+    console.log("===> DONE Seeding Clinic QUEUE");
   }
 }

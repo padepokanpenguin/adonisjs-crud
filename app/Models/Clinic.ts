@@ -52,7 +52,7 @@ export default class Clinic extends BaseModel {
 
   @beforeCreate()
   public static async generateId(clinic: Clinic) {
-    if (clinic.id) {
+    if (!clinic.id) {
       clinic.id = uuidV4();
     }
   }

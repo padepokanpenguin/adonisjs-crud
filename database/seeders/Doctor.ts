@@ -4,6 +4,7 @@ import Doctor from "App/Models/Doctor";
 export default class extends BaseSeeder {
   public async run() {
     // Write your database queries inside the run method
+    console.log("===> START Seeding Doctor");
     await Doctor.createMany([
       {
         id: "813de0c2-5f56-4749-af98-54ddfc8415c9",
@@ -18,5 +19,6 @@ export default class extends BaseSeeder {
         fee: 250000,
       },
     ]);
+    console.log("===> DONE Seeding Doctor");
   }
 }

@@ -6,9 +6,11 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid("id").primary();
-      table.uuid("employee_id").references("employees.id");
+      table.uuid("employee_id").references("employees.id").nullable();
+      table.uuid("patient_id").references("patients.id").nullable();
       table.string("email", 255).notNullable().unique();
       table.string("password", 180).notNullable();
+      table.enum("role", ["employee", "patient"]);
       table.string("remember_me_token").nullable();
 
       /**

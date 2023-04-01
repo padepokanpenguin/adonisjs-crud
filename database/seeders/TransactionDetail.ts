@@ -4,6 +4,8 @@ import TransactionDetail from "App/Models/TransactionDetail";
 export default class extends BaseSeeder {
   public async run() {
     // Write your database queries inside the run method
+
+    console.log("===> START Seeding Transaction Detail")
     await TransactionDetail.createMany([
       {
         id: "6c5e6ae2-d5b0-421b-89b9-3a12ed1c2ecd",
@@ -60,5 +62,6 @@ export default class extends BaseSeeder {
         cost: 100.25,
       },
     ]);
+    console.log("===> DONE Seeding Transaction Detail")
   }
 }

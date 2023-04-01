@@ -64,7 +64,7 @@ export default class MedicalRecord extends BaseModel {
 
   @beforeCreate()
   public static async generateId(medicalRecord: MedicalRecord) {
-    if (medicalRecord.id) {
+    if (!medicalRecord.id) {
       medicalRecord.id = uuidV4();
     }
   }

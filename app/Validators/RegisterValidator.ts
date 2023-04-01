@@ -5,12 +5,17 @@ export default class RegisterValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    employee_id: schema.string({ trim: true }, [
+    employee_id: schema.string.optional({ trim: true }, [
       rules.uuid({ version: 4 }),
       rules.exists({ table: "employees", column: "id" }),
     ]),
+    patientId: schema.string.optional({ trim: true }, [
+      rules.uuid({ version: 4 }),
+      rules.exists({ table: "patients", column: "id" }),
+    ]),
     email: schema.string({ trim: true }, [rules.email()]),
     password: schema.string({ trim: true }),
+    role: schema.enum(["employee", "patient"]),
     remember_me_token: schema.string.optional({ trim: true }),
   });
 

@@ -5,6 +5,7 @@ import { DateTime } from "luxon";
 export default class extends BaseSeeder {
   public async run() {
     // Write your database queries inside the run method
+    console.log("===> START Seeding Registration Queue");
     await RegistrationQueue.createMany([
       {
         id: "8a8f96ea-3a22-49db-b84d-c7c726eb9bc4",
@@ -43,5 +44,6 @@ export default class extends BaseSeeder {
         status: "registered",
       },
     ]);
+    console.log("===> START Seeding Registration Queue")
   }
 }

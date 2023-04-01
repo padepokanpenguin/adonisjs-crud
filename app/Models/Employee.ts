@@ -76,7 +76,7 @@ export default class Employee extends BaseModel {
 
   @beforeCreate()
   public static async generateId(employee: Employee) {
-    if (employee.id) {
+    if (!employee.id) {
       employee.id = uuidV4();
     }
   }

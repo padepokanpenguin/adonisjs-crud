@@ -4,6 +4,7 @@ import Pharmacist from "App/Models/Pharmacist";
 export default class extends BaseSeeder {
   public async run() {
     // Write your database queries inside the run method
+    console.log("===> START Seeding Pharmacist");
     await Pharmacist.createMany([
       {
         id: "316bb150-6fab-402d-bf32-2df9b48da808",
@@ -11,5 +12,6 @@ export default class extends BaseSeeder {
         licenseNumber: "ini license number pharmacy",
       },
     ]);
+    console.log("===> DONE Seeding Pharmacist");
   }
 }

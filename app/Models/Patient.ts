@@ -7,11 +7,14 @@ import {
   column,
   HasMany,
   hasMany,
+  HasOne,
+  hasOne,
 } from "@ioc:Adonis/Lucid/Orm";
 import { v4 as uuidV4 } from "uuid";
 import Employee from "./Employee";
 import ClinicQueue from "./ClinicQueue";
 import MedicalRecord from "./MedicalRecord";
+import User from "./User";
 
 export default class Patient extends BaseModel {
   @column({ isPrimary: true })
@@ -70,6 +73,9 @@ export default class Patient extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
 
+  @hasOne(() => User)
+  public user: HasOne<typeof User>;
+
   @hasMany(() => ClinicQueue)
   public clinicQueue: HasMany<typeof ClinicQueue>;
 
@@ -78,7 +84,7 @@ export default class Patient extends BaseModel {
 
   @beforeCreate()
   public static async generateId(patient: Patient) {
-    if (patient.id) {
+    if (!patient.id) {
       patient.id = uuidV4();
     }
   }
