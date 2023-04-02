@@ -12,13 +12,13 @@ export default class AuthController {
     try {
       const payload = await request.validate(RegisterValidator);
       const data = await User.create(payload);
-      // const token = await ApiToken.create({
-      //   userId: data.id,
-      //   name: "Verifikasi Email",
-      //   type: "Email Verification",
-      //   token: string.generateRandom(64),
-      // });
-      const token = string.generateRandom(64);
+      const token = await ApiToken.create({
+        userId: data.id,
+        name: "Verifikasi Email",
+        type: "Email Verification",
+        token: string.generateRandom(64),
+      });
+      // const token = string.generateRandom(64);
 
       await Mail.send((message) => {
         message
@@ -34,7 +34,7 @@ export default class AuthController {
       response.created({
         message: "Berhasil Register",
         data,
-        token,
+        token: token.token,
       });
     } catch (error) {
       ResponseError.handler(error, response, "Auth Co ln:38");
@@ -45,9 +45,7 @@ export default class AuthController {
     try {
       const { email, password } = await request.validate(LoginValidator);
 
-      const token = await auth.attempt(email, password, {
-        expiresIn: "7 days",
-      });
+      const token = await auth.attempt(email, password, true);
 
       response.created({ message: "Login berhasil", data: token });
     } catch (error) {
