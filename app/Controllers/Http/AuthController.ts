@@ -1,6 +1,6 @@
-import Encryption from "@ioc:Adonis/Core/Encryption";
 import Mail from "@ioc:Adonis/Addons/Mail";
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { string } from "@ioc:Adonis/Core/Helpers";
 import { ResponseError } from "App/Exceptions/ResponseError";
 import ApiToken from "App/Models/ApiToken";
 import User from "App/Models/User";
@@ -12,32 +12,32 @@ export default class AuthController {
     try {
       const payload = await request.validate(RegisterValidator);
       const data = await User.create(payload);
+      // const token = await ApiToken.create({
+      //   userId: data.id,
+      //   name: "Verifikasi Email",
+      //   type: "Email Verification",
+      //   token: string.generateRandom(64),
+      // });
+      const token = string.generateRandom(64);
 
       await Mail.send((message) => {
         message
           .from("arianurjamal@noreply.com")
           .to(data.email)
-          .attach("Pendaftaran Berhasil")
           .htmlView("emails/register", {
             person: data.email,
             role: data.role,
-            token: token.token,
+            token,
           });
-      });
-
-      const token = await ApiToken.create({
-        userId: data.id,
-        name: "Verifikasi Email",
-        type: "Email Verification",
-        token: Encryption.encrypt(data.id + data.createdAt),
       });
 
       response.created({
         message: "Berhasil Register",
         data,
+        token,
       });
     } catch (error) {
-      ResponseError.handler(error, response, "Auth Co ln:15");
+      ResponseError.handler(error, response, "Auth Co ln:38");
     }
   }
 
@@ -45,13 +45,13 @@ export default class AuthController {
     try {
       const { email, password } = await request.validate(LoginValidator);
 
-      const token = await auth.use("api").attempt(email, password, {
-        expiresIn: "30 days",
+      const token = await auth.attempt(email, password, {
+        expiresIn: "7 days",
       });
 
       response.created({ message: "Login berhasil", data: token });
     } catch (error) {
-      ResponseError.handler(error, response, "Auth Co ln:27 ");
+      ResponseError.handler(error, response, "Auth Co ln:52");
     }
   }
 }

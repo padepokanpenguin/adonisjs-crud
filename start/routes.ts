@@ -1,4 +1,5 @@
 import Route from "@ioc:Adonis/Core/Route";
+import ApiToken from "App/Models/ApiToken";
 import { roles } from "App/Utils/helper";
 
 // Route.get("/", async () => {
@@ -81,4 +82,30 @@ Route.get("/", async ({ view }) => {
   });
 
   return v;
+});
+
+Route.get("/verify-email", async ({ view, request, response }) => {
+  const token = request.input("token");
+
+  if (!token) {
+    return response.redirect("/");
+  }
+
+  const existingToken = await ApiToken.query()
+    .preload("user")
+    .where("token", token)
+    .first();
+
+  if (!existingToken) {
+    return response.redirect("/");
+  }
+
+  // Update the user attached to the token and save.
+  existingToken.user.isVerified = true;
+  existingToken.user.save();
+
+  // Delete the token
+  await existingToken.delete();
+
+  return view.render("emails/verified");
 });

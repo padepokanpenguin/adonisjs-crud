@@ -23,7 +23,7 @@ export default class extends BaseSchema {
       table.string("phone_number", 16);
       table.date("birth_date");
       table.date("register_date");
-      table.boolean("is_verified").defaultTo(false);
+
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

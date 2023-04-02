@@ -64,9 +64,6 @@ export default class Patient extends BaseModel {
   @column()
   public registerDate: DateTime;
 
-  @column()
-  public isVerified: boolean;
-
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
 

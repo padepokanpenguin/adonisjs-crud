@@ -7,14 +7,19 @@ export default class CheckRole {
     next: () => Promise<void>,
     roles?: string[]
   ) {
-    const employee = await Employee.query()
-      .where("id", "=", auth.user!.employee_id)
-      .firstOrFail();
+    const user = auth.user!;
 
-    if (roles!.indexOf(employee.role) < 0) {
-      return response.unauthorized("User tidak memiliki access");
+    if (!user) {
+      return response.status(401).send("Unauthorized");
+    } else {
+      const employee = await Employee.query()
+        .where("id", "=", user.employeeId)
+        .firstOrFail();
+      if (roles!.indexOf(employee.role) < 0) {
+        return response.unauthorized("User tidak memiliki access");
+      }
+
+      await next();
     }
-
-    await next();
   }
 }

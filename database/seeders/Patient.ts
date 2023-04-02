@@ -21,7 +21,6 @@ export default class extends BaseSeeder {
         phoneNumber: "0812345678901234",
         birthDate: new Date("2000-01-01"),
         registerDate: DateTime.now(),
-        isVerified: true,
       },
       {
         id: "027aba7d-8804-46c9-9d02-9ff680973c4a",
@@ -37,7 +36,6 @@ export default class extends BaseSeeder {
         phoneNumber: "0812345678901235",
         birthDate: new Date("2000-01-01"),
         registerDate: DateTime.now(),
-        isVerified: true,
       },
       {
         id: "77d317ea-1478-45e0-bc61-c9561c3e99db",
@@ -53,7 +51,6 @@ export default class extends BaseSeeder {
         phoneNumber: "0812345678901235",
         birthDate: new Date("2000-01-01"),
         registerDate: DateTime.now(),
-        isVerified: true,
       },
     ]);
     console.log("===> DONE Seeding PATIENT");
