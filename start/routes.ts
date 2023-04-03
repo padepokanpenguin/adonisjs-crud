@@ -2,9 +2,9 @@ import Route from "@ioc:Adonis/Core/Route";
 import ApiToken from "App/Models/ApiToken";
 import { roles, verifyEmail } from "App/Utils/helper";
 
-// Route.get("/", async () => {
-//   return { hello: "world" };
-// });
+Route.get("/", async () => {
+  return { hello: "world" };
+});
 
 Route.post("/register", "AuthController.register");
 Route.post("/login", "AuthController.login");
@@ -79,14 +79,14 @@ Route.group(() => {
   Route.post("/send-email", "MailController.send");
 }).middleware("auth");
 
-Route.get("/", async ({ view }) => {
-  const v = await view.render("dashboard", {
-    firstName: "John",
-    lastName: "Doe",
-  });
+// Route.get("/", async ({ view }) => {
+//   const v = await view.render("dashboard", {
+//     firstName: "John",
+//     lastName: "Doe",
+//   });
 
-  return v;
-});
+//   return v;
+// });
 
 Route.get("/verify-email", async ({ view, request, response }) => {
   const token = request.input("token");
