@@ -10,7 +10,7 @@ export default class extends BaseSchema {
       table.uuid("patient_id").references("patients.id").nullable();
       table.string("email", 255).notNullable().unique();
       table.string("password", 180).notNullable();
-      table.boolean("is_verified").defaultTo(false).notNullable();
+      table.boolean("is_verified").defaultTo(false).notNullable()
       table.enum("role", ["employee", "patient"]);
       table.string("remember_me_token").nullable();
 

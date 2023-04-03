@@ -11,3 +11,10 @@ export const roles = {
   update: "checkRole:doctor,admin",
   destroy: "checkRole:admin",
 };
+
+export const verifyEmail = {
+  show: "verifyEmail",
+  store: "verifyEmail",
+  update: "verifyEmail",
+  destroy: "verifyEmail",
+};

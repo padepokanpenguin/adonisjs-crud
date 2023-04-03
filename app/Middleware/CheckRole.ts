@@ -9,16 +9,17 @@ export default class CheckRole {
   ) {
     const user = auth.user!;
 
+    console.log(user.role);
     if (!user) {
       return response.status(401).send("Unauthorized");
-    } else {
+    }
+    if (user.role === "employee" && user.employeeId) {
       const employee = await Employee.query()
         .where("id", "=", user.employeeId)
         .firstOrFail();
       if (roles!.indexOf(employee.role) < 0) {
         return response.unauthorized("User tidak memiliki access");
       }
-
       await next();
     }
   }
