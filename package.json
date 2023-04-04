@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "node ace serve --watch",
-    "build": "node ace build --production",
+    "build": "node ace build --production && cp .env.example build/.env",
     "start": "node build/server.js",
     "postinstall": "node fixKecoa/fix.js && node ace migration:run && node ace db:seed && node ace migration:status",
-    "postbuild": "cp .env.example build/.env",
     "test": "node ace test"
   },
   "devDependencies": {
