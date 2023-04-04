@@ -7,6 +7,7 @@
     "build": "node ace build --production",
     "start": "node build/server.js",
     "postinstall": "node fixKecoa/fix.js && node ace migration:run && node ace db:seed && node ace migration:status",
+    "postbuild": "cp .env.example build/.env",
     "test": "node ace test"
   },
   "devDependencies": {
