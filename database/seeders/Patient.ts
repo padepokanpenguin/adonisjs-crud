@@ -19,7 +19,7 @@ export default class extends BaseSeeder {
         gender: "male",
         address: "Jalan Buncit Raya Ragunan",
         phoneNumber: "0812345678901234",
-        birthDate: new Date("2000-01-01"),
+        birthDate: new Date(),
         registerDate: DateTime.now(),
       },
       {
@@ -34,7 +34,7 @@ export default class extends BaseSeeder {
         gender: "male",
         address: "Jalan Buncit Raya Ragunan",
         phoneNumber: "0812345678901235",
-        birthDate: new Date("2000-01-01"),
+        birthDate: new Date(),
         registerDate: DateTime.now(),
       },
       {
@@ -49,7 +49,7 @@ export default class extends BaseSeeder {
         gender: "female",
         address: "Jalan Syiaridin No. XXX",
         phoneNumber: "0812345678901235",
-        birthDate: new Date("2000-01-01"),
+        birthDate: new Date(),
         registerDate: DateTime.now(),
       },
     ]);
